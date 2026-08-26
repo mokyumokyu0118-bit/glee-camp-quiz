@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { Users, Play, Square, Trophy, CheckCircle2, XCircle, LogOut, ArrowRight, UserCheck, PieChart } from "lucide-react";
+import { Users, Play, Square, Trophy, CheckCircle2, XCircle, LogOut, ArrowRight, UserCheck, PieChart, FastForward } from "lucide-react";
 
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set } from "firebase/database";
@@ -49,10 +49,11 @@ const PRE_REGISTERED_MEMBERS: { id: string; name: string; part: Part; grade: num
   { id: "bs1", name: "佐藤晃", part: "Bass", grade: 4 }, { id: "bs2", name: "石川夢樹", part: "Bass", grade: 3 },
   { id: "bs3", name: "一色遊", part: "Bass", grade: 3 }, { id: "bs4", name: "清水脩悟", part: "Bass", grade: 3 },
   { id: "bs5", name: "林春太郎", part: "Bass", grade: 3 }, { id: "bs6", name: "糸川英治", part: "Bass", grade: 2 },
-  { id: "bs7", name: "安久啓悟", part: "Bass", grade: 1 }, { id: "bs8", name: "宇原央燿", part: "Bass", grade: 1 },  { id: "bs9", name: "田尻雄莉", part: "Bass", grade: 3 }
+  { id: "bs7", name: "安久啓悟", part: "Bass", grade: 1 }, { id: "bs8", name: "宇原央燿", part: "Bass", grade: 1 }, { id: "bs9", name: "田尻雄莉", part: "Bass", grade: 3 }
 ];
 
-type QuestionType = "tarekomi" | "photo";
+// 【追加】イントロクイズの型を追加
+type QuestionType = "tarekomi" | "photo" | "intro";
 type Question = {
   id: string;
   type: QuestionType;
@@ -62,8 +63,8 @@ type Question = {
   options: string[];
 };
 
-// 【修正】中田の問題を削除、名前の後のパート表記を削除
 const QUESTIONS: Question[] = [
+  // --- タレコミクイズ ---
   { id: "q1", type: "tarekomi", title: "タレコミクイズ 1", text: "【石川泰輝】\n女の子を鞭で叩いたり、蝋を垂らしたりするSMプレイが好き", options: ["本当", "嘘"] },
   { id: "q2", type: "tarekomi", title: "タレコミクイズ 2", text: "【中山東熊】\n高校同期のメサイア指揮者アシスタントのことが好きだった", options: ["本当", "嘘"] },
   { id: "q3", type: "tarekomi", title: "タレコミクイズ 3", text: "【田中司真】\n後輩複数名に自分のうどんや特急券の代金を支払わせたことがある", options: ["本当", "嘘"] },
@@ -105,7 +106,9 @@ const QUESTIONS: Question[] = [
   { id: "q40", type: "tarekomi", title: "タレコミクイズ 39", text: "【田中司真】\n好きな体位はバック", options: ["本当", "嘘"] },
   { id: "q41", type: "tarekomi", title: "タレコミクイズ 40", text: "【西森晄志】\n居酒屋バイトで泣いた", options: ["本当", "嘘"] },
   { id: "q42", type: "tarekomi", title: "タレコミクイズ 41", text: "【一色遊】\nなぜかよく京田辺のあまのじゃくで出くわす", options: ["本当", "嘘"] },
-  { id: "q42", type: "tarekomi", title: "タレコミクイズ 42", text: "【今田健登】\nいまけんは69という数字を見て性的というよりも数学的に興奮する", options: ["本当", "嘘"] },
+  { id: "q43", type: "tarekomi", title: "タレコミクイズ 42", text: "【今田健登】\nいまけんは69という数字を見て性的というよりも数学的に興奮する", options: ["本当", "嘘"] },
+  
+  // --- 写真当てクイズ ---
   {
     id: "p1",
     type: "photo",
@@ -114,6 +117,23 @@ const QUESTIONS: Question[] = [
     imageUrl: "https://placehold.co/600x400/e2e8f0/475569?text=Photo+1",
     options: [], 
   },
+  
+  // --- イントロクイズ (15問) ---
+  { id: "i1", type: "intro", title: "イントロクイズ 1", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i2", type: "intro", title: "イントロクイズ 2", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i3", type: "intro", title: "イントロクイズ 3", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i4", type: "intro", title: "イントロクイズ 4", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i5", type: "intro", title: "イントロクイズ 5", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i6", type: "intro", title: "イントロクイズ 6", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i7", type: "intro", title: "イントロクイズ 7", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i8", type: "intro", title: "イントロクイズ 8", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i9", type: "intro", title: "イントロクイズ 9", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i10", type: "intro", title: "イントロクイズ 10", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i11", type: "intro", title: "イントロクイズ 11", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i12", type: "intro", title: "イントロクイズ 12", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i13", type: "intro", title: "イントロクイズ 13", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i14", type: "intro", title: "イントロクイズ 14", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "i15", type: "intro", title: "イントロクイズ 15", text: "この曲のタイトルは何でしょう？", options: [] },
 ];
 
 const PART_COLORS: Record<Part, string> = {
@@ -128,11 +148,13 @@ const PART_COLORS: Record<Part, string> = {
 // ==========================================
 
 type GameState = {
-  status: "waiting" | "question_active" | "voting_closed" | "result_revealed" | "leaderboard";
+  status: "waiting" | "question_active" | "buzzed" | "voting_closed" | "result_revealed" | "leaderboard";
   currentQuestionIndex: number;
   correctAnswer: string | null;
   answers: Record<string, string>;
   scores: Record<string, number>;
+  buzzerWinner: string | null; // 【追加】早押し勝者
+  lockedOut: string[];         // 【追加】お手つきした人
 };
 
 const INITIAL_STATE: GameState = {
@@ -141,6 +163,8 @@ const INITIAL_STATE: GameState = {
   correctAnswer: null,
   answers: {},
   scores: {},
+  buzzerWinner: null,
+  lockedOut: [],
 };
 
 function useGameState() {
@@ -154,7 +178,9 @@ function useGameState() {
         setState({
           ...data,
           answers: data.answers || {},
-          scores: data.scores || {}
+          scores: data.scores || {},
+          buzzerWinner: data.buzzerWinner || null,
+          lockedOut: data.lockedOut || [],
         });
       }
     });
@@ -248,6 +274,17 @@ function ParticipantMode() {
     }));
   };
 
+  // 【追加】早押しボタンの処理
+  const handleBuzz = () => {
+    if (!currentUser || state.status !== "question_active" || state.lockedOut?.includes(currentUser.id)) return;
+    updateState((prev) => {
+      if (prev.status === "question_active") {
+        return { ...prev, status: "buzzed", buzzerWinner: currentUser.id };
+      }
+      return prev;
+    });
+  };
+
   const partScores = useMemo(() => {
     const scores: Record<Part, number> = { Top: 0, Second: 0, Baritone: 0, Bass: 0 };
     Object.entries(state.scores || {}).forEach(([memberId, score]) => {
@@ -257,7 +294,6 @@ function ParticipantMode() {
     return Object.entries(scores).sort((a, b) => b[1] - a[1]) as [Part, number][];
   }, [state.scores]);
 
-  // 【追加】みんなの投票割合の計算
   const voteStats = useMemo(() => {
     const answers = Object.values(state.answers || {});
     const total = answers.length;
@@ -335,64 +371,104 @@ function ParticipantMode() {
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-center text-slate-800 bg-white p-4 rounded-xl shadow-sm">{currentQ.title}</h2>
             
-            {currentQ.type === "tarekomi" && (
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                <p className="text-slate-800 whitespace-pre-wrap font-medium leading-relaxed">{currentQ.text}</p>
-              </div>
-            )}
-
-            {currentQ.type === "photo" && currentQ.imageUrl && (
-              <img src={currentQ.imageUrl} alt="クイズ画像" className="w-full h-48 object-cover rounded-xl shadow border-2 border-white" />
-            )}
-
-            {currentQ.type === "tarekomi" ? (
-              <div className="grid grid-cols-1 gap-4">
-                {currentQ.options.map((opt) => (
-                  <button
-                    key={opt}
-                    onClick={() => handleAnswer(opt)}
-                    className={`p-6 rounded-2xl text-2xl font-bold border-4 transition-all ${
-                      myAnswer === opt 
-                        ? "bg-indigo-600 text-white border-indigo-600 scale-105" 
-                        : "bg-white text-slate-700 border-transparent shadow hover:border-indigo-300"
-                    }`}
-                  >
-                    {opt}
-                  </button>
-                ))}
+            {currentQ.type === "intro" ? (
+              // 【追加】イントロクイズ用の早押しボタンUI
+              <div className="space-y-6 flex flex-col items-center justify-center mt-8">
+                <p className="text-center text-sm font-bold text-slate-500">音楽が流れたらボタンを押してください！</p>
+                <button
+                  onClick={handleBuzz}
+                  disabled={state.lockedOut?.includes(currentUser.id)}
+                  className={`w-64 h-64 rounded-full text-5xl font-black text-white transition-all transform flex items-center justify-center ${
+                    state.lockedOut?.includes(currentUser.id)
+                      ? "bg-slate-400 shadow-none scale-95 opacity-50"
+                      : "bg-red-600 shadow-[0_15px_0_rgb(153,27,27)] hover:bg-red-500 active:shadow-[0_0px_0_rgb(153,27,27)] active:translate-y-4"
+                  }`}
+                >
+                  {state.lockedOut?.includes(currentUser.id) ? "❌" : "PUSH!"}
+                </button>
+                {state.lockedOut?.includes(currentUser.id) && (
+                  <p className="text-red-500 font-bold mt-4">お手つきにより解答権を失いました</p>
+                )}
               </div>
             ) : (
-              <div className="space-y-4">
-                <p className="text-center text-sm font-bold text-slate-500 mb-2">誰の写真か選んでください</p>
-                {PARTS.map(part => {
-                  const partMembers = PRE_REGISTERED_MEMBERS
-                    .filter(m => m.part === part)
-                    .sort((a, b) => b.grade - a.grade);
-                    
-                  return (
-                    <div key={part} className="bg-white rounded-xl p-3 shadow-sm border border-slate-200">
-                      <h3 className={`text-xs font-bold mb-2 px-2 py-1 inline-block rounded text-white ${PART_COLORS[part]}`}>
-                        {part}
-                      </h3>
-                      <div className="grid grid-cols-2 gap-2">
-                        {partMembers.map(m => (
-                          <button
-                            key={m.id}
-                            onClick={() => handleAnswer(m.name)}
-                            className={`p-2 text-sm rounded-lg border-2 text-left flex items-center transition-all ${
-                              myAnswer === m.name 
-                                ? "bg-indigo-600 text-white border-indigo-600 font-bold shadow-md" 
-                                : "bg-slate-50 text-slate-700 border-slate-200"
-                            }`}
-                          >
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded mr-1.5 ${myAnswer === m.name ? "bg-indigo-500 text-white" : "bg-slate-200 text-slate-500"}`}>{m.grade}年</span>
-                            {m.name}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
+              // タレコミ & 写真 UI
+              <>
+                {currentQ.type === "tarekomi" && (
+                  <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                    <p className="text-slate-800 whitespace-pre-wrap font-medium leading-relaxed">{currentQ.text}</p>
+                  </div>
+                )}
+                {currentQ.type === "photo" && currentQ.imageUrl && (
+                  <img src={currentQ.imageUrl} alt="クイズ画像" className="w-full h-48 object-cover rounded-xl shadow border-2 border-white" />
+                )}
+                {currentQ.type === "tarekomi" ? (
+                  <div className="grid grid-cols-1 gap-4">
+                    {currentQ.options.map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => handleAnswer(opt)}
+                        className={`p-6 rounded-2xl text-2xl font-bold border-4 transition-all ${
+                          myAnswer === opt 
+                            ? "bg-indigo-600 text-white border-indigo-600 scale-105" 
+                            : "bg-white text-slate-700 border-transparent shadow hover:border-indigo-300"
+                        }`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <p className="text-center text-sm font-bold text-slate-500 mb-2">誰の写真か選んでください</p>
+                    {PARTS.map(part => {
+                      const partMembers = PRE_REGISTERED_MEMBERS
+                        .filter(m => m.part === part)
+                        .sort((a, b) => b.grade - a.grade);
+                        
+                      return (
+                        <div key={part} className="bg-white rounded-xl p-3 shadow-sm border border-slate-200">
+                          <h3 className={`text-xs font-bold mb-2 px-2 py-1 inline-block rounded text-white ${PART_COLORS[part]}`}>
+                            {part}
+                          </h3>
+                          <div className="grid grid-cols-2 gap-2">
+                            {partMembers.map(m => (
+                              <button
+                                key={m.id}
+                                onClick={() => handleAnswer(m.name)}
+                                className={`p-2 text-sm rounded-lg border-2 text-left flex items-center transition-all ${
+                                  myAnswer === m.name 
+                                    ? "bg-indigo-600 text-white border-indigo-600 font-bold shadow-md" 
+                                    : "bg-slate-50 text-slate-700 border-slate-200"
+                                }`}
+                              >
+                                <span className={`text-[10px] px-1.5 py-0.5 rounded mr-1.5 ${myAnswer === m.name ? "bg-indigo-500 text-white" : "bg-slate-200 text-slate-500"}`}>{m.grade}年</span>
+                                {m.name}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+
+        {/* 【追加】早押し誰かが押したときのUI */}
+        {state.status === "buzzed" && (
+          <div className="text-center space-y-4 mt-12">
+            {state.buzzerWinner === currentUser.id ? (
+              <div className="bg-yellow-100 border-4 border-yellow-400 p-8 rounded-3xl shadow-lg inline-block w-full animate-pulse">
+                <h2 className="text-3xl font-black text-red-600">あなたの解答権です！</h2>
+                <p className="text-slate-700 mt-4 font-bold">大きな声で答えてください！</p>
+              </div>
+            ) : (
+              <div className="bg-slate-200 p-8 rounded-3xl shadow-inner inline-block w-full">
+                <h2 className="text-2xl font-bold text-slate-600">
+                  {PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.name} さんが解答中...
+                </h2>
               </div>
             )}
           </div>
@@ -403,53 +479,64 @@ function ParticipantMode() {
             <div className="bg-white p-8 rounded-3xl shadow-lg inline-block w-full">
               <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-slate-800">投票完了！</h2>
-              <p className="text-slate-500 mt-2">
-                あなたの回答: <span className="font-bold text-indigo-600">{myAnswer || "未回答"}</span>
-              </p>
+              {currentQ.type !== "intro" && (
+                <p className="text-slate-500 mt-2">
+                  あなたの回答: <span className="font-bold text-indigo-600">{myAnswer || "未回答"}</span>
+                </p>
+              )}
             </div>
           </div>
         )}
 
         {state.status === "result_revealed" && (
           <div className="text-center space-y-4 mt-12">
-            <div className={`p-8 rounded-3xl shadow-lg inline-block w-full ${myAnswer === state.correctAnswer ? "bg-green-100 border-2 border-green-400" : "bg-red-50 border-2 border-red-300"}`}>
-              {myAnswer === state.correctAnswer ? (
-                <>
-                  <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4 animate-bounce" />
-                  <h2 className="text-2xl font-black text-green-700">正解！</h2>
-                </>
-              ) : (
-                <>
-                  <XCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-                  <h2 className="text-2xl font-black text-red-600">残念...</h2>
-                </>
-              )}
-              <div className="mt-4 pt-4 border-t border-black/10">
-                <p className="text-sm text-slate-500">正解は</p>
-                <p className="text-xl font-bold text-slate-800">{state.correctAnswer}</p>
+            {currentQ.type === "intro" ? (
+              <div className="p-8 rounded-3xl shadow-lg inline-block w-full bg-blue-50 border-2 border-blue-300">
+                <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4 animate-bounce" />
+                <h2 className="text-2xl font-black text-blue-700">正解発表！</h2>
+                <div className="mt-4 pt-4 border-t border-black/10">
+                  <p className="text-sm text-slate-500">正解の曲は</p>
+                  <p className="text-xl font-bold text-slate-800">{state.correctAnswer}</p>
+                </div>
               </div>
-
-              {/* 【追加】みんなの投票割合表示（タレコミの場合のみ） */}
-              {currentQ.type === "tarekomi" && (
-                <div className="mt-6 pt-6 border-t border-black/10">
-                  <p className="text-sm text-slate-500 font-bold mb-3 flex items-center justify-center gap-1">
-                    <PieChart className="w-4 h-4" /> みんなの予想
-                  </p>
-                  <div className="flex gap-3 text-sm font-bold">
-                    <div className={`flex-1 p-3 rounded-xl border ${voteStats.trueVotes > voteStats.falseVotes ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-slate-200'}`}>
-                      <span className="text-slate-500 block text-xs">本当</span>
-                      <span className="text-indigo-600 text-2xl">{voteStats.truePercent}%</span>
-                      <span className="text-slate-400 text-xs ml-1">({voteStats.trueVotes}人)</span>
-                    </div>
-                    <div className={`flex-1 p-3 rounded-xl border ${voteStats.falseVotes > voteStats.trueVotes ? 'bg-pink-50 border-pink-200' : 'bg-white border-slate-200'}`}>
-                      <span className="text-slate-500 block text-xs">嘘</span>
-                      <span className="text-pink-600 text-2xl">{voteStats.falsePercent}%</span>
-                      <span className="text-slate-400 text-xs ml-1">({voteStats.falseVotes}人)</span>
+            ) : (
+              <div className={`p-8 rounded-3xl shadow-lg inline-block w-full ${myAnswer === state.correctAnswer ? "bg-green-100 border-2 border-green-400" : "bg-red-50 border-2 border-red-300"}`}>
+                {myAnswer === state.correctAnswer ? (
+                  <>
+                    <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-4 animate-bounce" />
+                    <h2 className="text-2xl font-black text-green-700">正解！</h2>
+                  </>
+                ) : (
+                  <>
+                    <XCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
+                    <h2 className="text-2xl font-black text-red-600">残念...</h2>
+                  </>
+                )}
+                <div className="mt-4 pt-4 border-t border-black/10">
+                  <p className="text-sm text-slate-500">正解は</p>
+                  <p className="text-xl font-bold text-slate-800">{state.correctAnswer}</p>
+                </div>
+                {currentQ.type === "tarekomi" && (
+                  <div className="mt-6 pt-6 border-t border-black/10">
+                    <p className="text-sm text-slate-500 font-bold mb-3 flex items-center justify-center gap-1">
+                      <PieChart className="w-4 h-4" /> みんなの予想
+                    </p>
+                    <div className="flex gap-3 text-sm font-bold">
+                      <div className={`flex-1 p-3 rounded-xl border ${voteStats.trueVotes > voteStats.falseVotes ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-slate-200'}`}>
+                        <span className="text-slate-500 block text-xs">本当</span>
+                        <span className="text-indigo-600 text-2xl">{voteStats.truePercent}%</span>
+                        <span className="text-slate-400 text-xs ml-1">({voteStats.trueVotes}人)</span>
+                      </div>
+                      <div className={`flex-1 p-3 rounded-xl border ${voteStats.falseVotes > voteStats.trueVotes ? 'bg-pink-50 border-pink-200' : 'bg-white border-slate-200'}`}>
+                        <span className="text-slate-500 block text-xs">嘘</span>
+                        <span className="text-pink-600 text-2xl">{voteStats.falsePercent}%</span>
+                        <span className="text-slate-400 text-xs ml-1">({voteStats.falseVotes}人)</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -504,18 +591,41 @@ function ParticipantMode() {
 
 function HostMode() {
   const { state, updateState, resetGame } = useGameState();
-  const [photoAnswerInput, setPhotoAnswerInput] = useState("");
+  const [photoAnswerInput, setPhotoAnswerInput] = useState(""); // 写真当て＆イントロの正解曲名入力用
   
   const currentQ = QUESTIONS[state.currentQuestionIndex] || QUESTIONS[0];
   const totalAnswers = Object.keys(state.answers || {}).length;
 
   const nextQuestion = () => {
-    updateState((prev) => ({ ...prev, status: "waiting", currentQuestionIndex: Math.min(prev.currentQuestionIndex + 1, QUESTIONS.length - 1), correctAnswer: null, answers: {} }));
+    updateState((prev) => ({ ...prev, status: "waiting", currentQuestionIndex: Math.min(prev.currentQuestionIndex + 1, QUESTIONS.length - 1), correctAnswer: null, answers: {}, buzzerWinner: null, lockedOut: [] }));
   };
 
-  const startVoting = () => updateState((prev) => ({ ...prev, status: "question_active", answers: {}, correctAnswer: null }));
+  const startVoting = () => updateState((prev) => ({ ...prev, status: "question_active", answers: {}, correctAnswer: null, buzzerWinner: null, lockedOut: [] }));
   const closeVoting = () => updateState((prev) => ({ ...prev, status: "voting_closed" }));
   const showLeaderboard = () => updateState((prev) => ({ ...prev, status: "leaderboard" }));
+
+  // 【追加】セクションジャンプ機能
+  const jumpTo = (idx: number) => {
+    if (idx !== -1) {
+      updateState(prev => ({
+        ...prev, currentQuestionIndex: idx, status: "waiting", answers: {}, correctAnswer: null, buzzerWinner: null, lockedOut: []
+      }));
+    }
+  };
+
+  // イントロクイズ用の正解判定
+  const revealIntroResult = (isCorrect: boolean) => {
+    updateState((prev) => {
+      if (isCorrect && prev.buzzerWinner) {
+        const newScores = { ...prev.scores };
+        newScores[prev.buzzerWinner] = (newScores[prev.buzzerWinner] || 0) + 10;
+        return { ...prev, status: "result_revealed", correctAnswer: "正解！", scores: newScores };
+      } else {
+        const newLockedOut = [...(prev.lockedOut || []), prev.buzzerWinner as string];
+        return { ...prev, status: "question_active", buzzerWinner: null, lockedOut: newLockedOut };
+      }
+    });
+  };
 
   const revealResult = (correctAnswer: string) => {
     updateState((prev) => {
@@ -555,15 +665,39 @@ function HostMode() {
                   <button onClick={startVoting} className="flex-1 py-4 bg-green-600 hover:bg-green-500 rounded-xl font-bold text-lg">出題 ＆ 投票スタート</button>
                 )}
                 
-                {state.status === "question_active" && (
+                {state.status === "question_active" && currentQ.type !== "intro" && (
                   <button onClick={closeVoting} className="flex-1 py-4 bg-red-600 hover:bg-red-500 rounded-xl font-bold text-lg">投票を締め切る</button>
+                )}
+
+                {/* 【追加】イントロクイズ用のホストUI */}
+                {state.status === "question_active" && currentQ.type === "intro" && (
+                  <div className="w-full flex gap-4">
+                    <div className="flex-1 py-4 bg-blue-900/50 rounded-xl font-bold text-lg text-center text-blue-300 border border-blue-500/30">
+                      早押し待機中...
+                    </div>
+                    <button onClick={() => updateState(prev => ({...prev, status: "voting_closed"}))} className="flex-1 py-4 bg-slate-700 hover:bg-slate-600 rounded-xl font-bold text-sm">
+                      誰も分からない (正解発表へ)
+                    </button>
+                  </div>
+                )}
+
+                {state.status === "buzzed" && (
+                  <div className="w-full bg-yellow-900/30 p-6 rounded-xl border-2 border-yellow-500">
+                    <h3 className="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
+                      🎤 解答者: {PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.name}
+                    </h3>
+                    <div className="flex gap-4">
+                      <button onClick={() => revealIntroResult(true)} className="flex-1 py-4 bg-green-600 hover:bg-green-500 rounded-xl font-bold text-lg">正解！ (+10pt)</button>
+                      <button onClick={() => revealIntroResult(false)} className="flex-1 py-4 bg-red-600 hover:bg-red-500 rounded-xl font-bold text-lg">不正解 (解答権復活)</button>
+                    </div>
+                  </div>
                 )}
 
                 {state.status === "voting_closed" && (
                   <div className="w-full bg-blue-900/30 p-4 rounded-xl border border-blue-500/30">
                     <p className="text-blue-300 text-sm mb-3">🎤 正しい回答を選択して確定させてください</p>
                     
-                    {currentQ.type === "tarekomi" ? (
+                    {currentQ.type === "tarekomi" && (
                       <div className="flex gap-4">
                         {currentQ.options.map(opt => (
                           <button key={opt} onClick={() => revealResult(opt)} className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-bold">
@@ -571,7 +705,9 @@ function HostMode() {
                           </button>
                         ))}
                       </div>
-                    ) : (
+                    )}
+                    
+                    {currentQ.type === "photo" && (
                       <div className="flex gap-3">
                         <select 
                           className="flex-1 p-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none"
@@ -589,6 +725,25 @@ function HostMode() {
                           className="px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-bold disabled:opacity-50"
                         >
                           正解を確定
+                        </button>
+                      </div>
+                    )}
+
+                    {currentQ.type === "intro" && (
+                      <div className="flex flex-col gap-3">
+                        <input
+                          type="text"
+                          placeholder="正解の曲名を入力（スクリーンに出ます）"
+                          className="w-full p-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none"
+                          value={photoAnswerInput}
+                          onChange={(e) => setPhotoAnswerInput(e.target.value)}
+                        />
+                        <button 
+                          disabled={!photoAnswerInput}
+                          onClick={() => updateState(prev => ({...prev, status: "result_revealed", correctAnswer: photoAnswerInput}))}
+                          className="w-full py-4 bg-blue-600 hover:bg-blue-500 rounded-lg font-bold disabled:opacity-50"
+                        >
+                          正解をスクリーンに表示
                         </button>
                       </div>
                     )}
@@ -621,7 +776,27 @@ function HostMode() {
                 )}
               </div>
             </div>
+
+            {/* 【追加】時間調整用セクションジャンプボタン */}
+            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+              <h3 className="text-lg font-bold mb-4 text-slate-300 flex items-center gap-2">
+                <FastForward className="w-5 h-5" /> 時間調整スキップ
+              </h3>
+              <p className="text-xs text-slate-400 mb-3">※進行が押した時に、次の企画へ強制移動します</p>
+              <div className="flex flex-col gap-2">
+                <button onClick={() => jumpTo(QUESTIONS.findIndex(q => q.type === "tarekomi"))} className="py-3 bg-slate-700 hover:bg-slate-600 rounded-lg font-bold text-sm">
+                  1. タレコミクイズの最初へ
+                </button>
+                <button onClick={() => jumpTo(QUESTIONS.findIndex(q => q.type === "photo"))} className="py-3 bg-slate-700 hover:bg-slate-600 rounded-lg font-bold text-sm">
+                  2. 子供の写真当ての最初へ
+                </button>
+                <button onClick={() => jumpTo(QUESTIONS.findIndex(q => q.type === "intro"))} className="py-3 bg-slate-700 hover:bg-slate-600 rounded-lg font-bold text-sm">
+                  3. イントロクイズの最初へ
+                </button>
+              </div>
+            </div>
           </div>
+          
           <div className="space-y-6">
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
               <h3 className="text-lg font-bold mb-4 text-slate-300">投票状況</h3>
@@ -682,6 +857,13 @@ function ScreenMode() {
               </p>
             </div>
 
+            {/* 【追加】イントロクイズ用スクリーンUI */}
+            {state.status === "question_active" && currentQ.type === "intro" && (
+              <div className="text-6xl font-black text-center text-blue-400 animate-pulse mt-16 drop-shadow-[0_0_15px_rgba(96,165,250,0.8)]">
+                🎵 音楽スタート！ 早押しボタンを押してください 🎵
+              </div>
+            )}
+
             {currentQ.type === "photo" && currentQ.imageUrl && (
               <div className="flex justify-center mb-12">
                 <img src={currentQ.imageUrl} alt="クイズ画像" className="max-h-[300px] rounded-2xl shadow-2xl border-4 border-slate-700" />
@@ -702,7 +884,7 @@ function ScreenMode() {
               </div>
             )}
 
-            {currentQ.type === "photo" && state.status === "result_revealed" && (
+            {(currentQ.type === "photo" || currentQ.type === "intro") && state.status === "result_revealed" && (
                <div className="flex flex-col items-center mt-12 animate-bounce">
                  <p className="text-2xl text-yellow-400 font-bold mb-2">正解は...</p>
                  <div className="px-12 py-6 bg-green-500 text-white rounded-3xl text-5xl font-black shadow-[0_0_50px_rgba(34,197,94,0.5)] border-4 border-green-300">
@@ -712,7 +894,7 @@ function ScreenMode() {
             )}
 
             <div className="absolute bottom-12 left-0 w-full flex justify-center">
-              {state.status === "question_active" && (
+              {state.status === "question_active" && currentQ.type !== "intro" && (
                 <div className="bg-blue-600 px-8 py-4 rounded-full text-2xl font-bold animate-pulse shadow-[0_0_30px_rgba(37,99,235,0.5)]">
                   回答受付中... ( 現在 {Object.keys(state.answers || {}).length} 人 )
                 </div>
@@ -722,6 +904,16 @@ function ScreenMode() {
                   投票終了！ 本人に聞いてみましょう...
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* 【追加】早押しに誰かが反応したときのド派手な演出 */}
+        {state.status === "buzzed" && (
+          <div className="flex flex-col items-center justify-center mt-16 animate-bounce w-full">
+            <p className="text-3xl text-yellow-400 font-bold mb-4 drop-shadow-lg">解答権獲得！</p>
+            <div className="px-16 py-8 bg-red-600 text-white rounded-[50px] text-7xl font-black shadow-[0_0_80px_rgba(220,38,38,0.8)] border-8 border-yellow-400">
+              {PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.part} : {PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.name}
             </div>
           </div>
         )}
