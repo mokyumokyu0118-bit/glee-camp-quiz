@@ -112,12 +112,105 @@ const QUESTIONS: Question[] = [
   {
     id: "p1",
     type: "photo",
-    title: "子供の頃の写真当てクイズ ①",
+    title: "子供の頃の写真当てクイズ 1",
     text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "https://placehold.co/600x400/e2e8f0/475569?text=Photo+1",
+    imageUrl: "/images/1129 - 西森晄志.jpg", // ← public/images/ の中に入れた実際のファイル名を書く
     options: [], 
   },
-  
+  {
+    id: "p2",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 2",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/FB_IMG_1787719015845 - 田中大山.jpg", // ← 2人目の画像ファイル名
+    options: [], 
+  },
+  {
+    id: "p3",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/IMG_1317 - 中井規矩士.jpeg", // ← 3人目の画像ファイル名
+    options: [], 
+  },
+  {
+    id: "p4",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/IMG_4555 - 川口零生.jpeg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p5",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/IMG_5136 - shu s.jpeg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p6",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/IMG_6315 - Taiki Sano.jpeg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p7",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p8",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p9",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p10",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p11",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p12",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p13",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },{
+    id: "p14",
+    type: "photo",
+    title: "子供の頃の写真当てクイズ 3",
+    text: "この可愛い写真は、一体誰の幼少期でしょう？",
+    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
+    options: [], 
+  },
   // --- イントロクイズ (15問) ---
   { id: "i1", type: "intro", title: "イントロクイズ 1", text: "この曲のタイトルは何でしょう？", options: [] },
   { id: "i2", type: "intro", title: "イントロクイズ 2", text: "この曲のタイトルは何でしょう？", options: [] },
