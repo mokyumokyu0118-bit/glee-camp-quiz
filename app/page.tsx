@@ -52,7 +52,6 @@ const PRE_REGISTERED_MEMBERS: { id: string; name: string; part: Part; grade: num
   { id: "bs7", name: "安久啓悟", part: "Bass", grade: 1 }, { id: "bs8", name: "宇原央燿", part: "Bass", grade: 1 }, { id: "bs9", name: "田尻雄莉", part: "Bass", grade: 3 }
 ];
 
-// 【追加】イントロクイズの型を追加
 type QuestionType = "tarekomi" | "photo" | "intro";
 type Question = {
   id: string;
@@ -61,172 +60,115 @@ type Question = {
   text: string;
   imageUrl?: string;
   options: string[];
+  anagramWord?: string;
+  shuffledChars?: string[];
 };
 
 const QUESTIONS: Question[] = [
   // --- タレコミクイズ ---
-  { id: "q1", type: "tarekomi", title: "タレコミクイズ 1", text: "【石川泰輝】\n女の子を鞭で叩いたり、蝋を垂らしたりするSMプレイが好き", options: ["本当", "嘘"] },
-  { id: "q2", type: "tarekomi", title: "タレコミクイズ 2", text: "【中山東熊】\n高校同期のメサイア指揮者アシスタントのことが好きだった", options: ["本当", "嘘"] },
-  { id: "q3", type: "tarekomi", title: "タレコミクイズ 3", text: "【田中司真】\n後輩複数名に自分のうどんや特急券の代金を支払わせたことがある", options: ["本当", "嘘"] },
-  { id: "q4", type: "tarekomi", title: "タレコミクイズ 4", text: "【林和尊】\n好きなポケモンはサーナイト。多分抜いたことある", options: ["本当", "嘘"] },
-  { id: "q5", type: "tarekomi", title: "タレコミクイズ 5", text: "【北島光】\n脇腹が弱点。積極的に狙いに行こう", options: ["本当", "嘘"] },
-  { id: "q6", type: "tarekomi", title: "タレコミクイズ 6", text: "【糸川英治】\n酔っ払うと人のホクロを触るフェチが開放されるえいじくん。先日、京都ユースの練習後の懇親会にて、ついに伊東先生の額のホクロに接触する実績を解除した。", options: ["本当", "嘘"] },
-  { id: "q7", type: "tarekomi", title: "タレコミクイズ 7", text: "【田中司真】\n現在の彼女を除いて2人にモテていたことがある", options: ["本当", "嘘"] },
-  { id: "q9", type: "tarekomi", title: "タレコミクイズ 8", text: "【清水脩悟】\n声が小さすぎてMCを首になったことがある", options: ["本当", "嘘"] },
-  { id: "q10", type: "tarekomi", title: "タレコミクイズ 9", text: "【西森晄志】\n毎年共通テストを受けている", options: ["本当", "嘘"] },
-  { id: "q11", type: "tarekomi", title: "タレコミクイズ 10", text: "【田中司真】\nセックス中に腰痛で動けなくなったことがある", options: ["本当", "嘘"] },
-  { id: "q12", type: "tarekomi", title: "タレコミクイズ 11", text: "【土井隆世】\n浪人時に、1人で海に行き、黙々と泳ぐ日を設けていた。", options: ["本当", "嘘"] },
-  { id: "q13", type: "tarekomi", title: "タレコミクイズ 12", text: "【石川泰輝】\n彼女に5000円借りたまま未だ返していない。", options: ["本当", "嘘"] },
-  { id: "q14", type: "tarekomi", title: "タレコミクイズ 13", text: "【岡田拓士】\n子供の頃メビウスの輪をドーナツと間違い食べていた。", options: ["本当", "嘘"] },
-  { id: "q15", type: "tarekomi", title: "タレコミクイズ 14", text: "【小川毅】\n母は、ママさんコーラスのお調子者である。", options: ["本当", "嘘"] },
-  { id: "q16", type: "tarekomi", title: "タレコミクイズ 15", text: "【柿葉大地】\n書店員のバイトをしている。", options: ["本当", "嘘"] },
-  { id: "q17", type: "tarekomi", title: "タレコミクイズ 16", text: "【佐藤大成】\n家で買っている亀の名前はパン", options: ["本当", "嘘"] },
-  { id: "q18", type: "tarekomi", title: "タレコミクイズ 17", text: "【田中司真】\n「仕事」と呼ぶとカッコいいと感じるので、「仕事」を頼むとやってくれる。", options: ["本当", "嘘"] },
-  { id: "q19", type: "tarekomi", title: "タレコミクイズ 18", text: "【山崎瑛大】\nバトリンは墨汁を炭酸で割って飲んだことがある", options: ["本当", "嘘"] },
-  { id: "q20", type: "tarekomi", title: "タレコミクイズ 19", text: "【西森晄志】\nエクセルの関数を使えない。", options: ["本当", "嘘"] },
-  { id: "q21", type: "tarekomi", title: "タレコミクイズ 20", text: "【石川夢樹】\n生まれてくる時には髪の毛が生えており、既にセンター分けになっていた。", options: ["本当", "嘘"] },
-  { id: "q22", type: "tarekomi", title: "タレコミクイズ 21", text: "【清水脩悟】\nバイト先には外国人ばかりで、その人たちは日本語が喋れないが、そこにうまく溶け込んでいる。", options: ["本当", "嘘"] },
-  { id: "q23", type: "tarekomi", title: "タレコミクイズ 22", text: "【安久啓悟】\n自室に虫が現れた際、秒殺する。", options: ["本当", "嘘"] },
-  { id: "q24", type: "tarekomi", title: "タレコミクイズ 23", text: "【石川泰輝】\nタバコを一人で吸ってる大人な女性が好きらしい", options: ["本当", "嘘"] },
-  { id: "q25", type: "tarekomi", title: "タレコミクイズ 24", text: "【山崎瑛大】\nサイゼリヤで吐いて出禁になりかけた", options: ["本当", "嘘"] },
-  { id: "q26", type: "tarekomi", title: "タレコミクイズ 25", text: "【伊藤陽生】\nバ先で一人でホール対応させられた上JKに怒られた", options: ["本当", "嘘"] },
-  { id: "q27", type: "tarekomi", title: "タレコミクイズ 26", text: "【田中大山】\n出生地はアメリカ", options: ["本当", "嘘"] },
-  { id: "q28", type: "tarekomi", title: "タレコミクイズ 27", text: "【田尻雄莉】\n田尻は寿司職人の1day仕事体験に参加したことがある", options: ["本当", "嘘"] },
-  { id: "q29", type: "tarekomi", title: "タレコミクイズ 28", text: "【柿葉大地】\n家に共産党宣言が飾られている", options: ["本当", "嘘"] },
-  { id: "q30", type: "tarekomi", title: "タレコミクイズ 29", text: "【川口零生】\nタバコは好きな人に憧れて吸い始めた", options: ["本当", "嘘"] },
-  { id: "q31", type: "tarekomi", title: "タレコミクイズ 30", text: "【清水脩悟】\n高校サッカーでのポジションはボランチ", options: ["本当", "嘘"] },
-  { id: "q32", type: "tarekomi", title: "タレコミクイズ 31", text: "【谷川陸翔】\n出身の高校は燃えて1回消えかけた", options: ["本当", "嘘"] },
-  { id: "q33", type: "tarekomi", title: "タレコミクイズ 32", text: "【佐野大器】\n実家は輪島塗で生計を立てている", options: ["本当", "嘘"] },
-  { id: "q34", type: "tarekomi", title: "タレコミクイズ 33", text: "【中山東熊】\n練習をサボって何度も旅行に行っている", options: ["本当", "嘘"] },
-  { id: "q35", type: "tarekomi", title: "タレコミクイズ 34", text: "【伊藤陽生】\n伊藤は心のノートを小学校の近くのため池に落としたことがある", options: ["本当", "嘘"] },
-  { id: "q36", type: "tarekomi", title: "タレコミクイズ 35", text: "【佐藤晃】\n期末テスト当日に遅刻してしまったが、脅威の健脚で出町柳から新町キャンパスまで15分で駆け抜けて何とか間に合ったことがある。", options: ["本当", "嘘"] },
-  { id: "q37", type: "tarekomi", title: "タレコミクイズ 36", text: "【田中司真】\n2年前のサイゼリヤでの忘年会の二次会で貸した1000円を早く返してください", options: ["本当", "嘘"] },
-  { id: "q38", type: "tarekomi", title: "タレコミクイズ 37", text: "【西森晄志】\nYoutubeの有名曲のMVに出たことがある", options: ["本当", "嘘"] },
-  { id: "q39", type: "tarekomi", title: "タレコミクイズ 38", text: "【川口零生】\n女の子と2人でアマークに入ったところを目撃されている", options: ["本当", "嘘"] },
-  { id: "q40", type: "tarekomi", title: "タレコミクイズ 39", text: "【田中司真】\n好きな体位はバック", options: ["本当", "嘘"] },
-  { id: "q41", type: "tarekomi", title: "タレコミクイズ 40", text: "【西森晄志】\n居酒屋バイトで泣いた", options: ["本当", "嘘"] },
-  { id: "q42", type: "tarekomi", title: "タレコミクイズ 41", text: "【一色遊】\nなぜかよく京田辺のあまのじゃくで出くわす", options: ["本当", "嘘"] },
-  { id: "q43", type: "tarekomi", title: "タレコミクイズ 42", text: "【今田健登】\nいまけんは69という数字を見て性的というよりも数学的に興奮する", options: ["本当", "嘘"] },
+  { id: "q1", type: "tarekomi", title: "タレコミクイズ 1", text: "【川口零生】\n京都女子大学の前学生指揮者と交際している。", options: ["本当", "嘘"] },
+  { id: "q2", type: "tarekomi", title: "タレコミクイズ 2", text: "【田中司真】\n現在の彼女を除いて2人にモテていたことがある。", options: ["本当", "嘘"] },
+  { id: "q3", type: "tarekomi", title: "タレコミクイズ 3", text: "【佐藤大成】\n川口零生をなめている。", options: ["本当", "嘘"] },
+  { id: "q4", type: "tarekomi", title: "タレコミクイズ 4", text: "【清水脩悟】\n声が小さすぎてMCを首になったことがある。", options: ["本当", "嘘"] },
+  { id: "q5", type: "tarekomi", title: "タレコミクイズ 5", text: "【西森晄志】\n毎年共通テストを受けている。", options: ["本当", "嘘"] },
+  { id: "q6", type: "tarekomi", title: "タレコミクイズ 6", text: "【田中司真】\nセックス中に腰痛で動けなくなったことがある。", options: ["本当", "嘘"] },
+  { id: "q7", type: "tarekomi", title: "タレコミクイズ 7", text: "【川口零生】\nロリコン！？", options: ["本当", "嘘"] },
+  { id: "q8", type: "tarekomi", title: "タレコミクイズ 8", text: "【田中司真】\n通常の避妊具が自身の男性器の大きさに合わなかったため、大きいサイズの避妊具をドンキホーテで購入したらしい。", options: ["本当", "嘘"] },
+  { id: "q9", type: "tarekomi", title: "タレコミクイズ 9", text: "【谷川陸翔】\n本当はピッチャーをしたかったが、制球が悪すぎてさせてもらえず、外野に回された。", options: ["本当", "嘘"] },
+  { id: "q10", type: "tarekomi", title: "タレコミクイズ 10", text: "【伊藤陽生】\n田尻雄莉の全裸画像を保存している。", options: ["本当", "嘘"] },
+  { id: "q11", type: "tarekomi", title: "タレコミクイズ 11", text: "【土井隆世】\n浪人時に、1人で海に行き、黙々と泳ぐ日を設けていた。", options: ["本当", "嘘"] },
+  { id: "q12", type: "tarekomi", title: "タレコミクイズ 12", text: "【石川泰輝】\n彼女に5000円借りたまま未だ返していない。", options: ["本当", "嘘"] },
+  { id: "q13", type: "tarekomi", title: "タレコミクイズ 13", text: "【岡田拓士】\n子供の頃メビウスの輪をドーナツと間違い食べていた。", options: ["本当", "嘘"] },
+  { id: "q14", type: "tarekomi", title: "タレコミクイズ 14", text: "【小川毅】\n母は、ママさんコーラスのお調子者である。", options: ["本当", "嘘"] },
+  { id: "q15", type: "tarekomi", title: "タレコミクイズ 15", text: "【柿葉大地】\n書店員のバイトをしている。", options: ["本当", "嘘"] },
+  { id: "q16", type: "tarekomi", title: "タレコミクイズ 16", text: "【佐藤大成】\n家で買っている亀の名前はパン", options: ["本当", "嘘"] },
+  { id: "q17", type: "tarekomi", title: "タレコミクイズ 17", text: "【田中司真】\n「仕事」と呼ぶとカッコいいと感じるので、「仕事」を頼むとやってくれる。", options: ["本当", "嘘"] },
+  { id: "q18", type: "tarekomi", title: "タレコミクイズ 18", text: "【山崎瑛大】\n決意を表明する色紙に、バトリンと書いた。", options: ["本当", "嘘"] },
+  { id: "q19", type: "tarekomi", title: "タレコミクイズ 19", text: "【西森晄志】\nエクセルの関数を使えない。", options: ["本当", "嘘"] },
+  { id: "q20", type: "tarekomi", title: "タレコミクイズ 20", text: "【石川夢樹】\n生まれてくる時には髪の毛が生えており、既にセンター分けになっていた。", options: ["本当", "嘘"] },
+  { id: "q21", type: "tarekomi", title: "タレコミクイズ 21", text: "【清水脩悟】\nバイト先には外国人ばかりで、その人たちは日本語が喋れないが、そこにうまく溶け込んでいる。", options: ["本当", "嘘"] },
+  { id: "q22", type: "tarekomi", title: "タレコミクイズ 22", text: "【安久啓悟】\n自室に虫が現れた際、秒殺する。", options: ["本当", "嘘"] },
+  { id: "q23", type: "tarekomi", title: "タレコミクイズ 23", text: "【伊藤陽生】\n一回生の頃の口癖は「帰りたい」だった。", options: ["本当", "嘘"] },
+  { id: "q24", type: "tarekomi", title: "タレコミクイズ 24", text: "【田中司真】\nすぐにバリトン旅行の代金を支払わずに、自身が好意を寄せている女性に東京への交通費を奢ったらしい。", options: ["本当", "嘘"] },
+  { id: "q25", type: "tarekomi", title: "タレコミクイズ 25", text: "【田尻雄莉】\n授業に30分遅刻して教室に入った際、全方向にお辞儀をして授業を受けた。なお、その後授業にあまり出席せずに無事落単した。", options: ["本当", "嘘"] },
+  { id: "q26", type: "tarekomi", title: "タレコミクイズ 26", text: "【石川泰輝】\nタバコを一人で吸ってる大人な女性が好きらしい。", options: ["本当", "嘘"] },
+  { id: "q27", type: "tarekomi", title: "タレコミクイズ 27", text: "【北島光】\n名前の由来は、親が宇多田ヒカルの大ファンだったため。", options: ["本当", "嘘"] },
+  { id: "q28", type: "tarekomi", title: "タレコミクイズ 28", text: "【五月女右京】\n中学生の頃、大人気テレビドラマ「相棒」にちなんで、「特命係」というあだ名をつけられていたことがある。", options: ["本当", "嘘"] },
+  { id: "q29", type: "tarekomi", title: "タレコミクイズ 29", text: "【武内颯輝】\n実は京田辺の練習に参加したことがない。", options: ["本当", "嘘"] },
+  { id: "q30", type: "tarekomi", title: "タレコミクイズ 30", text: "【天海聡太】\n１番の大好物は、キーマカレー。", options: ["本当", "嘘"] },
+  { id: "q31", type: "tarekomi", title: "タレコミクイズ 31", text: "【大國裕貴】\n日曜の朝は、ワッフルメーカーでワッフルを作るところから始まる。", options: ["本当", "嘘"] },
+  { id: "q32", type: "tarekomi", title: "タレコミクイズ 32", text: "【佐藤大成】\n好きなポケモンはドンメル。", options: ["本当", "嘘"] },
+  { id: "q33", type: "tarekomi", title: "タレコミクイズ 33", text: "【原口諒平】\n天然を自称していた時期がある。", options: ["本当", "嘘"] },
+  { id: "q34", type: "tarekomi", title: "タレコミクイズ 34", text: "【山崎瑛大】\nサイゼリヤで吐いて出禁になりかけた。", options: ["本当", "嘘"] },
+  { id: "q35", type: "tarekomi", title: "タレコミクイズ 35", text: "【伊藤陽生】\nバイト先で一人でホール対応させられた上JKに怒られた。", options: ["本当", "嘘"] },
+  { id: "q36", type: "tarekomi", title: "タレコミクイズ 36", text: "【田中大山】\n出生地はアメリカ。", options: ["本当", "嘘"] },
+  { id: "q37", type: "tarekomi", title: "タレコミクイズ 37", text: "【今田健登】\n風呂が詰まって練習を休んだことがある。", options: ["本当", "嘘"] },
+  { id: "q38", type: "tarekomi", title: "タレコミクイズ 38", text: "【一色遊】\n学期GPAが4.0だったことがある。", options: ["本当", "嘘"] },
+  { id: "q39", type: "tarekomi", title: "タレコミクイズ 39", text: "【柿葉大地】\n家に共産党宣言が飾られている。", options: ["本当", "嘘"] },
+  { id: "q40", type: "tarekomi", title: "タレコミクイズ 40", text: "【川口零生】\nタバコは好きな人に憧れて吸い始めた。", options: ["本当", "嘘"] },
+  { id: "q41", type: "tarekomi", title: "タレコミクイズ 41", text: "【清水脩悟】\n高校サッカーでのポジションはボランチ。", options: ["本当", "嘘"] },
+  { id: "q42", type: "tarekomi", title: "タレコミクイズ 42", text: "【谷川陸翔】\n出身の高校は燃えて1回消えかけた。", options: ["本当", "嘘"] },
+  { id: "q43", type: "tarekomi", title: "タレコミクイズ 43", text: "【佐野大器】\n実家は輪島塗で生計を立てている。", options: ["本当", "嘘"] },
+  { id: "q44", type: "tarekomi", title: "タレコミクイズ 44", text: "【中山東熊】\n練習をサボって何度も旅行に行っている。", options: ["本当", "嘘"] },
+  { id: "q45", type: "tarekomi", title: "タレコミクイズ 45", text: "【田中大山】\n高校の同期で同響の指揮マネと逢瀬を重ねている。", options: ["本当", "嘘"] },
+  { id: "q46", type: "tarekomi", title: "タレコミクイズ 46", text: "【石川泰輝】\n彼女と韓国旅行について話していた時に、「整形したいよねぇ」と言って、空気を重くしたことがある。", options: ["本当", "嘘"] },
+  { id: "q47", type: "tarekomi", title: "タレコミクイズ 47", text: "【岡田拓士】\n当時新入生だったグリーの新歓でくら寿司に行った時、ミルクレープ3・4個と高額皿複数を食べ、当時の4年生の先輩がATMに金を下ろしにいくことになった。", options: ["本当", "嘘"] },
+  { id: "q48", type: "tarekomi", title: "タレコミクイズ 48", text: "【佐藤晃】\n期末テスト当日に遅刻してしまったが、脅威の健脚で出町柳から新町キャンパスまで15分で駆け抜けて何とか間に合ったことがある。", options: ["本当", "嘘"] },
+  { id: "q49", type: "tarekomi", title: "タレコミクイズ 49", text: "【田中司真】\n2年前のサイゼリヤでの忘年会の二次会で借りた1000円をまだ返していない。", options: ["本当", "嘘"] },
+  { id: "q50", type: "tarekomi", title: "タレコミクイズ 50", text: "【田尻雄莉】\n東洋大学で仮面浪人し、同志社大学に合格した。", options: ["本当", "嘘"] },
+  { id: "q51", type: "tarekomi", title: "タレコミクイズ 51", text: "【西森晄志】\nYoutubeの有名曲のMVに出たことがある。", options: ["本当", "嘘"] },
+  { id: "q52", type: "tarekomi", title: "タレコミクイズ 52", text: "【川口零生】\n女の子と2人でアマークに入ったところを目撃されている。", options: ["本当", "嘘"] },
+  { id: "q53", type: "tarekomi", title: "タレコミクイズ 53", text: "【川口零生】\n昨年度の合宿で、女子マネージャーの1人と密室で一晩を過ごした。", options: ["本当", "嘘"] },
+  { id: "q54", type: "tarekomi", title: "タレコミクイズ 54", text: "【田中司真】\n好きな体位はバック。", options: ["本当", "嘘"] },
+  { id: "q55", type: "tarekomi", title: "タレコミクイズ 55", text: "【西森晄志】\n某肉屋で一番最初に教えられる仕事しか任せてもらえていない。", options: ["本当", "嘘"] },
+  { id: "q56", type: "tarekomi", title: "タレコミクイズ 56", text: "【西森晄志】\n居酒屋バイトで泣いた。", options: ["本当", "嘘"] },
+  { id: "q57", type: "tarekomi", title: "タレコミクイズ 57", text: "【岡田拓士】\n近所に出来た安い食べ放題の店に通いつめ、半年でその店を潰した。", options: ["本当", "嘘"] },
+  { id: "q58", type: "tarekomi", title: "タレコミクイズ 58", text: "【太田元】\n実は祖父が韓国人でクォーター。", options: ["本当", "嘘"] },
+  { id: "q59", type: "tarekomi", title: "タレコミクイズ 59", text: "【尾形朋紘】\n気絶してもいいようにアラームかけてテクノブレイクまでチャレンジしたことがある。", options: ["本当", "嘘"] },
+  { id: "q60", type: "tarekomi", title: "タレコミクイズ 60", text: "【大嶽朋起】\nゲームしすぎて普通に10単位ほど落単している。", options: ["本当", "嘘"] },
+  { id: "q61", type: "tarekomi", title: "タレコミクイズ 61", text: "【某グリーメン】\n今出川キャンパスの北にある某チェーン店でバイトしているが、しばしば間違えてご飯の量を数百g単位で多く盛ってしまう。", options: ["本当", "嘘"] },
+  { id: "q62", type: "tarekomi", title: "タレコミクイズ 62", text: "【一色遊】\nなぜかよく京田辺のあまのじゃくで出くわす。", options: ["本当", "嘘"] },
+  { id: "q63", type: "tarekomi", title: "タレコミクイズ 63", text: "【石川泰輝】\n女の子を鞭で叩いたり、蝋を垂らしたりするSMプレイが好き", options: ["本当", "嘘"] },
+  { id: "q64", type: "tarekomi", title: "タレコミクイズ 64", text: "【中山東熊】\n高校同期のメサイア指揮者アシスタントのことが好きだった", options: ["本当", "嘘"] },
+  { id: "q65", type: "tarekomi", title: "タレコミクイズ 65", text: "【田中司真】\n後輩複数名に自分のうどんや特急券の代金を支払わせたことがある", options: ["本当", "嘘"] },
+  { id: "q66", type: "tarekomi", title: "タレコミクイズ 66", text: "【林和尊】\n好きなポケモンはサーナイト。多分抜いたことある", options: ["本当", "嘘"] },
+  { id: "q67", type: "tarekomi", title: "タレコミクイズ 67", text: "【北島光】\n脇腹が弱点。積極的に狙いに行こう", options: ["本当", "嘘"] },
+  { id: "q68", type: "tarekomi", title: "タレコミクイズ 68", text: "【糸川英治】\n酔っ払うと人のホクロを触るフェチが開放されるえいじくん。先日、京都ユースの練習後の懇親会にて、ついに伊東先生の額のホクロに接触する実績を解除した。", options: ["本当", "嘘"] },
   
   // --- 写真当てクイズ ---
-  {
-    id: "p1",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 1",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/1129 - 西森晄志.jpg", // ← public/images/ の中に入れた実際のファイル名を書く
-    options: [], 
-  },
-  {
-    id: "p2",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 2",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/FB_IMG_1787719015845 - 田中大山.jpg", // ← 2人目の画像ファイル名
-    options: [], 
-  },
-  {
-    id: "p3",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/IMG_1317 - 中井規矩士.jpeg", // ← 3人目の画像ファイル名
-    options: [], 
-  },
-  {
-    id: "p4",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/IMG_4555 - 川口零生.jpeg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p5",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/IMG_5136 - shu s.jpeg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p6",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/IMG_6315 - Taiki Sano.jpeg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p7",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p8",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p9",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p10",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p11",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p12",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p13",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },{
-    id: "p14",
-    type: "photo",
-    title: "子供の頃の写真当てクイズ 3",
-    text: "この可愛い写真は、一体誰の幼少期でしょう？",
-    imageUrl: "/images/sano.jpg", // ← 3人目の画像ファイル名
-    options: [], 
-  },
-  // --- イントロクイズ (15問) ---
-  { id: "i1", type: "intro", title: "イントロクイズ 1", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i2", type: "intro", title: "イントロクイズ 2", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i3", type: "intro", title: "イントロクイズ 3", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i4", type: "intro", title: "イントロクイズ 4", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i5", type: "intro", title: "イントロクイズ 5", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i6", type: "intro", title: "イントロクイズ 6", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i7", type: "intro", title: "イントロクイズ 7", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i8", type: "intro", title: "イントロクイズ 8", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i9", type: "intro", title: "イントロクイズ 9", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i10", type: "intro", title: "イントロクイズ 10", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i11", type: "intro", title: "イントロクイズ 11", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i12", type: "intro", title: "イントロクイズ 12", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i13", type: "intro", title: "イントロクイズ 13", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i14", type: "intro", title: "イントロクイズ 14", text: "この曲のタイトルは何でしょう？", options: [] },
-  { id: "i15", type: "intro", title: "イントロクイズ 15", text: "この曲のタイトルは何でしょう？", options: [] },
+  { id: "p1", type: "photo", title: "子供の頃の写真当てクイズ 1", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1129 - 西森晄志.jpg", options: [] },
+  { id: "p2", type: "photo", title: "子供の頃の写真当てクイズ 2", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1000013799 - 宇原央燿.jpg", options: [] },
+  { id: "p3", type: "photo", title: "子供の頃の写真当てクイズ 3", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1596403907453 - 山崎瑛大.jpg", options: [] },
+  { id: "p4", type: "photo", title: "子供の頃の写真当てクイズ 4", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/d8ecdf10-a8e6-4f5a-bb92-a73ba556ad6e-1_all_3862 - 中山東熊.jpg", options: [] },
+  { id: "p5", type: "photo", title: "子供の頃の写真当てクイズ 5", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/DSC_0421 - call of war用サブ垢.JPG", options: [] },
+  { id: "p6", type: "photo", title: "子供の頃の写真当てクイズ 6", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/FB_IMG_1787719015845 - 田中大山.jpg", options: [] },
+  { id: "p7", type: "photo", title: "子供の頃の写真当てクイズ 7", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_1317 - 中井規矩士.jpeg", options: [] },
+  { id: "p8", type: "photo", title: "子供の頃の写真当てクイズ 8", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_1617 - 石井瑛士.jpeg", options: [] },
+  { id: "p9", type: "photo", title: "子供の頃の写真当てクイズ 9", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_3783 - 岡田拓士.jpeg", options: [] },
+  { id: "p10", type: "photo", title: "子供の頃の写真当てクイズ 10", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_4555 - 川口零生.jpeg", options: [] },
+  { id: "p11", type: "photo", title: "子供の頃の写真当てクイズ 11", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_4726 - 中井規矩士.jpeg", options: [] },
+  { id: "p12", type: "photo", title: "子供の頃の写真当てクイズ 12", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_5136 - shu s.jpeg", options: [] },
+  { id: "p13", type: "photo", title: "子供の頃の写真当てクイズ 13", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_5310 - 田中司真.jpeg", options: [] },
+  { id: "p14", type: "photo", title: "子供の頃の写真当てクイズ 14", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_6315 - Taiki Sano.jpeg", options: [] },
+  
+  // --- イントロクイズ (全17問：アナグラム設定済み) ---
+  { id: "i1", type: "intro", title: "イントロクイズ 1", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "どうししゃぐりー", shuffledChars: ["ぐ", "り", "し", "ー", "ど", "う", "ゃ", "し"] },
+  { id: "i2", type: "intro", title: "イントロクイズ 2", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "ぜんどうししゃめさいあ", shuffledChars: ["さ", "し", "ぜ", "あ", "ど", "ん", "め", "い", "う", "ゃ", "し"] },
+  { id: "i3", type: "intro", title: "イントロクイズ 3", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "かんきょうしすてむがっか", shuffledChars: ["す", "き", "か", "ん", "が", "し", "っ", "む", "う", "て", "か", "ょ"] },
+  { id: "i4", type: "intro", title: "イントロクイズ 4", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "いんてりじぇんとじょうほうこうがくか", shuffledChars: ["う", "て", "じ", "い", "ん", "く", "こ", "ほ", "と", "が", "う", "ん", "ぇ", "ょ", "か", "り", "う", "じ"] },
+  { id: "i5", type: "intro", title: "イントロクイズ 5", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "じょうほうしすてむでざいんがっか", shuffledChars: ["ん", "う", "む", "か", "し", "ほ", "で", "す", "て", "っ", "じ", "が", "い", "ょ", "う", "ざ"] },
+  { id: "i6", type: "intro", title: "イントロクイズ 6", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "かがくしすてむそうせいこうがくか", shuffledChars: ["か", "う", "そ", "く", "せ", "が", "す", "か", "む", "こ", "い", "う", "て", "が", "く", "し"] },
+  { id: "i7", type: "intro", title: "イントロクイズ 7", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "すうりしすてむがっか", shuffledChars: ["む", "か", "て", "し", "っ", "り", "が", "う", "す", "す"] },
+  { id: "i8", type: "intro", title: "イントロクイズ 8", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "さんきんこうりゅう", shuffledChars: ["り", "う", "ん", "き", "さ", "こ", "ん", "ゅ", "う"] },
+  { id: "i9", type: "intro", title: "イントロクイズ 9", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "しんまちきゃんぱす", shuffledChars: ["ち", "ぱ", "す", "ん", "ま", "し", "ゃ", "き", "ん"] },
+  { id: "i10", type: "intro", title: "イントロクイズ 10", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "なつがっしゅく", shuffledChars: ["っ", "く", "な", "ゅ", "が", "つ", "し"] },
+  { id: "i11", type: "intro", title: "イントロクイズ 11", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "てつへののろい", shuffledChars: ["の", "ろ", "て", "へ", "の", "つ", "い"] },
+  { id: "i12", type: "intro", title: "イントロクイズ 12", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "きょうたなべきゃんぱす", shuffledChars: ["べ", "ぱ", "き", "た", "ゃ", "き", "う", "な", "ょ", "ん", "す"] },
+  { id: "i13", type: "intro", title: "イントロクイズ 13", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "ほてるたにつね", shuffledChars: ["ね", "た", "る", "つ", "ほ", "に", "て"] },
+  { id: "i14", type: "intro", title: "イントロクイズ 14", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "らいどざちゃりおっと", shuffledChars: ["と", "ざ", "っ", "ら", "ち", "り", "お", "い", "ゃ", "ど"] },
+  { id: "i15", type: "intro", title: "イントロクイズ 15", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "わぐねるそさいえてぃー", shuffledChars: ["る", "ー", "さ", "い", "え", "わ", "そ", "て", "ぐ", "ぃ", "ね"] },
+  { id: "i16", type: "intro", title: "イントロクイズ 16", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "あいしょうきょくしゅう", shuffledChars: ["く", "し", "あ", "ょ", "う", "ゅ", "い", "き", "う", "ょ", "し"] },
+  { id: "i17", type: "intro", title: "イントロクイズ 17", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "こっこれんてぃ", shuffledChars: ["ん", "こ", "て", "っ", "こ", "ぃ", "れ"] }
 ];
 
 const PART_COLORS: Record<Part, string> = {
@@ -246,8 +188,8 @@ type GameState = {
   correctAnswer: string | null;
   answers: Record<string, string>;
   scores: Record<string, number>;
-  buzzerWinner: string | null; // 【追加】早押し勝者
-  lockedOut: string[];         // 【追加】お手つきした人
+  buzzerWinner: string | null;
+  lockedOut: string[];
 };
 
 const INITIAL_STATE: GameState = {
@@ -367,7 +309,6 @@ function ParticipantMode() {
     }));
   };
 
-  // 【追加】早押しボタンの処理
   const handleBuzz = () => {
     if (!currentUser || state.status !== "question_active" || state.lockedOut?.includes(currentUser.id)) return;
     updateState((prev) => {
@@ -376,6 +317,36 @@ function ParticipantMode() {
       }
       return prev;
     });
+  };
+
+  const currentQ = QUESTIONS[state.currentQuestionIndex] || QUESTIONS[0];
+  const myAnswer = state.answers?.[currentUser?.id || ""];
+
+  const introData = useMemo(() => {
+    if (!currentUser || currentQ.type !== "intro" || !currentQ.anagramWord) return null;
+    const members = PRE_REGISTERED_MEMBERS.filter(m => m.part === currentUser.part).sort((a,b)=>a.id.localeCompare(b.id));
+    const inputter = members[state.currentQuestionIndex % members.length];
+    const others = members.filter(m => m.id !== inputter.id);
+    const myIdx = others.findIndex(m => m.id === currentUser.id);
+    const myChars = others.length > 0 ? currentQ.shuffledChars!.filter((_, i) => i % others.length === myIdx) : currentQ.shuffledChars!;
+    
+    return { inputter, others, myChars, isInputter: inputter.id === currentUser.id };
+  }, [currentQ, currentUser, state.currentQuestionIndex]);
+
+  const [anagramInput, setAnagramInput] = useState("");
+  const [anagramUnlocked, setAnagramUnlocked] = useState(false);
+
+  useEffect(() => {
+    setAnagramUnlocked(false);
+    setAnagramInput("");
+  }, [state.currentQuestionIndex]);
+
+  const handleUnlock = () => {
+    if (anagramInput === currentQ.anagramWord) {
+      setAnagramUnlocked(true);
+    } else {
+      alert("単語が違います！もう一度パートのメンバーに文字を確認しよう！");
+    }
   };
 
   const partScores = useMemo(() => {
@@ -393,9 +364,7 @@ function ParticipantMode() {
     const trueVotes = answers.filter(a => a === "本当").length;
     const falseVotes = answers.filter(a => a === "嘘").length;
     return {
-      total,
-      trueVotes,
-      falseVotes,
+      total, trueVotes, falseVotes,
       truePercent: total > 0 ? Math.round((trueVotes / total) * 100) : 0,
       falsePercent: total > 0 ? Math.round((falseVotes / total) * 100) : 0,
     };
@@ -442,9 +411,6 @@ function ParticipantMode() {
     );
   }
 
-  const currentQ = QUESTIONS[state.currentQuestionIndex] || QUESTIONS[0];
-  const myAnswer = state.answers?.[currentUser.id];
-
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col pb-12">
       <div className={`${PART_COLORS[currentUser.part]} text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-50`}>
@@ -465,26 +431,66 @@ function ParticipantMode() {
             <h2 className="text-xl font-bold text-center text-slate-800 bg-white p-4 rounded-xl shadow-sm">{currentQ.title}</h2>
             
             {currentQ.type === "intro" ? (
-              // 【追加】イントロクイズ用の早押しボタンUI
-              <div className="space-y-6 flex flex-col items-center justify-center mt-8">
-                <p className="text-center text-sm font-bold text-slate-500">音楽が流れたらボタンを押してください！</p>
-                <button
-                  onClick={handleBuzz}
-                  disabled={state.lockedOut?.includes(currentUser.id)}
-                  className={`w-64 h-64 rounded-full text-5xl font-black text-white transition-all transform flex items-center justify-center ${
-                    state.lockedOut?.includes(currentUser.id)
-                      ? "bg-slate-400 shadow-none scale-95 opacity-50"
-                      : "bg-red-600 shadow-[0_15px_0_rgb(153,27,27)] hover:bg-red-500 active:shadow-[0_0px_0_rgb(153,27,27)] active:translate-y-4"
-                  }`}
-                >
-                  {state.lockedOut?.includes(currentUser.id) ? "❌" : "PUSH!"}
-                </button>
-                {state.lockedOut?.includes(currentUser.id) && (
-                  <p className="text-red-500 font-bold mt-4">お手つきにより解答権を失いました</p>
+              <div className="space-y-6 flex flex-col items-center justify-center mt-4">
+                {introData?.isInputter ? (
+                  <div className="bg-white p-6 rounded-2xl shadow-sm w-full border border-indigo-200 text-center">
+                    <h3 className="text-lg font-bold text-indigo-700 mb-2">🔑 あなたは解答係です！</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      パートメンバーの画面に表示されている文字を大声で聞き出して、パスワード（単語）を完成させてください！
+                    </p>
+                    
+                    {!anagramUnlocked ? (
+                      <div className="space-y-3">
+                        <input 
+                          type="text" 
+                          value={anagramInput}
+                          onChange={(e) => setAnagramInput(e.target.value)}
+                          placeholder={`全 ${currentQ.anagramWord?.length} 文字`}
+                          className="w-full p-4 border-2 border-slate-300 rounded-xl text-center text-2xl font-bold focus:border-indigo-500 outline-none"
+                        />
+                        <button onClick={handleUnlock} className="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl shadow-md text-lg hover:bg-indigo-700">
+                          ロックを解除する
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <p className="text-green-600 font-bold text-lg animate-pulse">🔓 ロック解除成功！</p>
+                        <p className="text-sm text-slate-500">曲が分かったらボタンを押せ！</p>
+                        <button
+                          onClick={handleBuzz}
+                          disabled={state.lockedOut?.includes(currentUser.id)}
+                          className={`w-64 h-64 mx-auto rounded-full text-5xl font-black text-white transition-all transform flex items-center justify-center ${
+                            state.lockedOut?.includes(currentUser.id)
+                              ? "bg-slate-400 shadow-none scale-95 opacity-50"
+                              : "bg-red-600 shadow-[0_15px_0_rgb(153,27,27)] hover:bg-red-500 active:shadow-[0_0px_0_rgb(153,27,27)] active:translate-y-4"
+                          }`}
+                        >
+                          {state.lockedOut?.includes(currentUser.id) ? "❌" : "PUSH!"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="bg-white p-6 rounded-2xl shadow-sm w-full border border-slate-200 text-center">
+                     <h3 className="text-sm font-bold text-slate-500 mb-4">あなたの文字</h3>
+                     <div className="flex flex-wrap justify-center gap-3 mb-6">
+                       {introData?.myChars.length ? introData.myChars.map((char, idx) => (
+                         <div key={idx} className="w-24 h-28 bg-slate-800 text-white rounded-2xl flex items-center justify-center text-6xl font-black shadow-inner">
+                           {char}
+                         </div>
+                       )) : (
+                         <div className="w-24 h-28 bg-yellow-100 text-yellow-600 border-2 border-yellow-400 rounded-2xl flex items-center justify-center text-6xl font-black">
+                           ★
+                         </div>
+                       )}
+                     </div>
+                     <p className="text-sm text-slate-600 font-bold bg-slate-100 p-3 rounded-xl border border-slate-200">
+                       解答係は <span className="text-indigo-600 text-xl mx-1">{introData?.inputter.name}</span> です！<br/>大声で文字を伝えて協力しよう！
+                     </p>
+                  </div>
                 )}
               </div>
             ) : (
-              // タレコミ & 写真 UI
               <>
                 {currentQ.type === "tarekomi" && (
                   <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
@@ -492,7 +498,7 @@ function ParticipantMode() {
                   </div>
                 )}
                 {currentQ.type === "photo" && currentQ.imageUrl && (
-                  <img src={currentQ.imageUrl} alt="クイズ画像" className="w-full h-48 object-cover rounded-xl shadow border-2 border-white" />
+                  <img src={currentQ.imageUrl} alt="クイズ画像" className="w-full h-48 object-contain bg-slate-200 rounded-xl shadow border-2 border-white" />
                 )}
                 {currentQ.type === "tarekomi" ? (
                   <div className="grid grid-cols-1 gap-4">
@@ -549,7 +555,6 @@ function ParticipantMode() {
           </div>
         )}
 
-        {/* 【追加】早押し誰かが押したときのUI */}
         {state.status === "buzzed" && (
           <div className="text-center space-y-4 mt-12">
             {state.buzzerWinner === currentUser.id ? (
@@ -558,9 +563,10 @@ function ParticipantMode() {
                 <p className="text-slate-700 mt-4 font-bold">大きな声で答えてください！</p>
               </div>
             ) : (
-              <div className="bg-slate-200 p-8 rounded-3xl shadow-inner inline-block w-full">
-                <h2 className="text-2xl font-bold text-slate-600">
-                  {PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.name} さんが解答中...
+              <div className="bg-slate-200 p-8 rounded-3xl shadow-inner inline-block w-full border border-slate-300">
+                <h2 className="text-xl font-bold text-slate-600">
+                  <span className="text-indigo-600 mr-2">{PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.name}</span> 
+                  さんが解答中...
                 </h2>
               </div>
             )}
@@ -684,7 +690,7 @@ function ParticipantMode() {
 
 function HostMode() {
   const { state, updateState, resetGame } = useGameState();
-  const [photoAnswerInput, setPhotoAnswerInput] = useState(""); // 写真当て＆イントロの正解曲名入力用
+  const [photoAnswerInput, setPhotoAnswerInput] = useState("");
   
   const currentQ = QUESTIONS[state.currentQuestionIndex] || QUESTIONS[0];
   const totalAnswers = Object.keys(state.answers || {}).length;
@@ -697,7 +703,6 @@ function HostMode() {
   const closeVoting = () => updateState((prev) => ({ ...prev, status: "voting_closed" }));
   const showLeaderboard = () => updateState((prev) => ({ ...prev, status: "leaderboard" }));
 
-  // 【追加】セクションジャンプ機能
   const jumpTo = (idx: number) => {
     if (idx !== -1) {
       updateState(prev => ({
@@ -706,7 +711,6 @@ function HostMode() {
     }
   };
 
-  // イントロクイズ用の正解判定
   const revealIntroResult = (isCorrect: boolean) => {
     updateState((prev) => {
       if (isCorrect && prev.buzzerWinner) {
@@ -762,7 +766,6 @@ function HostMode() {
                   <button onClick={closeVoting} className="flex-1 py-4 bg-red-600 hover:bg-red-500 rounded-xl font-bold text-lg">投票を締め切る</button>
                 )}
 
-                {/* 【追加】イントロクイズ用のホストUI */}
                 {state.status === "question_active" && currentQ.type === "intro" && (
                   <div className="w-full flex gap-4">
                     <div className="flex-1 py-4 bg-blue-900/50 rounded-xl font-bold text-lg text-center text-blue-300 border border-blue-500/30">
@@ -870,7 +873,6 @@ function HostMode() {
               </div>
             </div>
 
-            {/* 【追加】時間調整用セクションジャンプボタン */}
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
               <h3 className="text-lg font-bold mb-4 text-slate-300 flex items-center gap-2">
                 <FastForward className="w-5 h-5" /> 時間調整スキップ
@@ -950,16 +952,16 @@ function ScreenMode() {
               </p>
             </div>
 
-            {/* 【追加】イントロクイズ用スクリーンUI */}
             {state.status === "question_active" && currentQ.type === "intro" && (
-              <div className="text-6xl font-black text-center text-blue-400 animate-pulse mt-16 drop-shadow-[0_0_15px_rgba(96,165,250,0.8)]">
-                🎵 音楽スタート！ 早押しボタンを押してください 🎵
+              <div className="text-5xl font-black text-center text-blue-400 animate-pulse mt-12 drop-shadow-[0_0_15px_rgba(96,165,250,0.8)] leading-snug">
+                🎵 音楽スタート！ 🎵<br/>
+                <span className="text-3xl text-yellow-300">パートで協力してパスワードを解き、<br/>早押しボタンのロックを解除せよ！</span>
               </div>
             )}
 
             {currentQ.type === "photo" && currentQ.imageUrl && (
               <div className="flex justify-center mb-12">
-                <img src={currentQ.imageUrl} alt="クイズ画像" className="max-h-[300px] rounded-2xl shadow-2xl border-4 border-slate-700" />
+                <img src={currentQ.imageUrl} alt="クイズ画像" className="max-h-[400px] w-auto object-contain bg-slate-800 rounded-2xl shadow-2xl border-4 border-slate-700" />
               </div>
             )}
 
@@ -1001,7 +1003,6 @@ function ScreenMode() {
           </div>
         )}
 
-        {/* 【追加】早押しに誰かが反応したときのド派手な演出 */}
         {state.status === "buzzed" && (
           <div className="flex flex-col items-center justify-center mt-16 animate-bounce w-full">
             <p className="text-3xl text-yellow-400 font-bold mb-4 drop-shadow-lg">解答権獲得！</p>
