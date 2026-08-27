@@ -691,12 +691,14 @@ function ParticipantMode() {
 function HostMode() {
   const { state, updateState, resetGame } = useGameState();
   const [photoAnswerInput, setPhotoAnswerInput] = useState("");
+  const [introPoints, setIntroPoints] = useState(10); // 【追加】イントロクイズ用のポイント調整ステート
   
   const currentQ = QUESTIONS[state.currentQuestionIndex] || QUESTIONS[0];
   const totalAnswers = Object.keys(state.answers || {}).length;
 
   const nextQuestion = () => {
     updateState((prev) => ({ ...prev, status: "waiting", currentQuestionIndex: Math.min(prev.currentQuestionIndex + 1, QUESTIONS.length - 1), correctAnswer: null, answers: {}, buzzerWinner: null, lockedOut: [] }));
+    setIntroPoints(10); // 【追加】次の問題に行ったら10ポイントにリセット
   };
 
   const startVoting = () => updateState((prev) => ({ ...prev, status: "question_active", answers: {}, correctAnswer: null, buzzerWinner: null, lockedOut: [] }));
@@ -708,6 +710,7 @@ function HostMode() {
       updateState(prev => ({
         ...prev, currentQuestionIndex: idx, status: "waiting", answers: {}, correctAnswer: null, buzzerWinner: null, lockedOut: []
       }));
+      setIntroPoints(10);
     }
   };
 
@@ -715,7 +718,7 @@ function HostMode() {
     updateState((prev) => {
       if (isCorrect && prev.buzzerWinner) {
         const newScores = { ...prev.scores };
-        newScores[prev.buzzerWinner] = (newScores[prev.buzzerWinner] || 0) + 10;
+        newScores[prev.buzzerWinner] = (newScores[prev.buzzerWinner] || 0) + introPoints; // 【修正】入力されたポイントを付与
         return { ...prev, status: "result_revealed", correctAnswer: "正解！", scores: newScores };
       } else {
         const newLockedOut = [...(prev.lockedOut || []), prev.buzzerWinner as string];
@@ -782,8 +785,23 @@ function HostMode() {
                     <h3 className="text-2xl font-bold text-yellow-400 mb-4 flex items-center gap-2">
                       🎤 解答者: {PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.name}
                     </h3>
+                    
+                    {/* 【追加】イントロクイズ ポイント調整UI */}
+                    <div className="flex items-center gap-3 mb-6 bg-slate-800/50 p-4 rounded-xl border border-yellow-600/50">
+                      <span className="text-yellow-300 font-bold">付与ポイント:</span>
+                      <button onClick={() => setIntroPoints(p => p - 10)} className="w-10 h-10 bg-slate-700 rounded-lg hover:bg-slate-600 text-xl font-bold flex items-center justify-center">-</button>
+                      <input 
+                        type="number" 
+                        value={introPoints} 
+                        onChange={(e) => setIntroPoints(Number(e.target.value))}
+                        className="w-20 p-2 text-center bg-slate-900 border border-slate-600 rounded-lg font-bold text-xl outline-none"
+                      />
+                      <button onClick={() => setIntroPoints(p => p + 10)} className="w-10 h-10 bg-slate-700 rounded-lg hover:bg-slate-600 text-xl font-bold flex items-center justify-center">+</button>
+                      <span className="text-slate-400 text-sm ml-2">※最終調整用 (マイナスも可)</span>
+                    </div>
+
                     <div className="flex gap-4">
-                      <button onClick={() => revealIntroResult(true)} className="flex-1 py-4 bg-green-600 hover:bg-green-500 rounded-xl font-bold text-lg">正解！ (+10pt)</button>
+                      <button onClick={() => revealIntroResult(true)} className="flex-1 py-4 bg-green-600 hover:bg-green-500 rounded-xl font-bold text-lg">正解！ (+{introPoints}pt)</button>
                       <button onClick={() => revealIntroResult(false)} className="flex-1 py-4 bg-red-600 hover:bg-red-500 rounded-xl font-bold text-lg">不正解 (解答権復活)</button>
                     </div>
                   </div>
