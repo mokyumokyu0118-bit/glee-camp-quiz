@@ -42,7 +42,7 @@ const PRE_REGISTERED_MEMBERS: { id: string; name: string; part: Part; grade: num
   { id: "s7", name: "佐藤大成", part: "Second", grade: 1 },
   { id: "br1", name: "田中司真", part: "Baritone", grade: 4 }, { id: "br2", name: "西森晄志", part: "Baritone", grade: 4 },
   { id: "br3", name: "中山東熊", part: "Baritone", grade: 4 }, { id: "br4", name: "伊藤陽生", part: "Baritone", grade: 3 },
-   { id: "br6", name: "山崎瑛大", part: "Baritone", grade: 3 },
+  { id: "br6", name: "山崎瑛大", part: "Baritone", grade: 3 },
   { id: "br7", name: "今田健登", part: "Baritone", grade: 2 }, 
   { id: "br8", name: "大嶽朋起", part: "Baritone", grade: 1 }, { id: "br5", name: "尾形朋紘", part: "Baritone", grade: 1 },
   { id: "bs1", name: "佐藤晃", part: "Bass", grade: 4 }, { id: "bs2", name: "石川夢樹", part: "Bass", grade: 3 },
@@ -123,20 +123,20 @@ const QUESTIONS: Question[] = [
   { id: "q56", type: "tarekomi", title: "タレコミクイズ 56", text: "【某グリーメン】\n今出川キャンパスの北にある某チェーン店でバイトしているが、しばしば間違えてご飯の量を数百g単位で多く盛ってしまう。", options: ["本当", "嘘"] },
   
   // --- 写真当てクイズ ---
-  { id: "p1", type: "photo", title: "子供の頃の写真当てクイズ 1", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p1.jpg", options: [] },
-  { id: "p2", type: "photo", title: "子供の頃の写真当てクイズ 2", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p2.jpg", options: [] },
-  { id: "p3", type: "photo", title: "子供の頃の写真当てクイズ 3", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p3.jpg", options: [] },
-  { id: "p4", type: "photo", title: "子供の頃の写真当てクイズ 4", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p4.jpg", options: [] },
-  { id: "p5", type: "photo", title: "子供の頃の写真当てクイズ 5", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p5.JPG", options: [] },
-  { id: "p6", type: "photo", title: "子供の頃の写真当てクイズ 6", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p6.jpg", options: [] },
-  { id: "p7", type: "photo", title: "子供の頃の写真当てクイズ 7", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p7.jpeg", options: [] },
-  { id: "p8", type: "photo", title: "子供の頃の写真当てクイズ 8", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p8.jpeg", options: [] },
-  { id: "p9", type: "photo", title: "子供の頃の写真当てクイズ 9", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p9.jpeg", options: [] },
-  { id: "p10", type: "photo", title: "子供の頃の写真当てクイズ 10", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p10.jpeg", options: [] },
-  { id: "p11", type: "photo", title: "子供の頃の写真当てクイズ 11", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p11.jpeg", options: [] },
-  { id: "p12", type: "photo", title: "子供の頃の写真当てクイズ 12", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p12.jpeg", options: [] },
-  { id: "p13", type: "photo", title: "子供の頃の写真当てクイズ 13", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p13.jpeg", options: [] },
-  { id: "p14", type: "photo", title: "子供の頃の写真当てクイズ 14", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p14.jpeg", options: [] },
+  { id: "p1", type: "photo", title: "子供の頃の写真当てクイズ 1", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1129 - 西森晄志.jpg", options: [] },
+  { id: "p2", type: "photo", title: "子供の頃の写真当てクイズ 2", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1000013799 - 宇原央燿.jpg", options: [] },
+  { id: "p3", type: "photo", title: "子供の頃の写真当てクイズ 3", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1596403907453 - 山崎瑛大.jpg", options: [] },
+  { id: "p4", type: "photo", title: "子供の頃の写真当てクイズ 4", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/d8ecdf10-a8e6-4f5a-bb92-a73ba556ad6e-1_all_3862 - 中山東熊.jpg", options: [] },
+  { id: "p5", type: "photo", title: "子供の頃の写真当てクイズ 5", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/DSC_0421 - call of war用サブ垢.JPG", options: [] },
+  { id: "p6", type: "photo", title: "子供の頃の写真当てクイズ 6", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/FB_IMG_1787719015845 - 田中大山.jpg", options: [] },
+  { id: "p7", type: "photo", title: "子供の頃の写真当てクイズ 7", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_1317 - 中井規矩士.jpeg", options: [] },
+  { id: "p8", type: "photo", title: "子供の頃の写真当てクイズ 8", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_1617 - 石井瑛士.jpeg", options: [] },
+  { id: "p9", type: "photo", title: "子供の頃の写真当てクイズ 9", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_3783 - 岡田拓士.jpeg", options: [] },
+  { id: "p10", type: "photo", title: "子供の頃の写真当てクイズ 10", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_4555 - 川口零生.jpeg", options: [] },
+  { id: "p11", type: "photo", title: "子供の頃の写真当てクイズ 11", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_4726 - 中井規矩士.jpeg", options: [] },
+  { id: "p12", type: "photo", title: "子供の頃の写真当てクイズ 12", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_5136 - shu s.jpeg", options: [] },
+  { id: "p13", type: "photo", title: "子供の頃の写真当てクイズ 13", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_5310 - 田中司真.jpeg", options: [] },
+  { id: "p14", type: "photo", title: "子供の頃の写真当てクイズ 14", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_6315 - Taiki Sano.jpeg", options: [] },
   
   // --- イントロクイズ (全17問：アナグラム設定済み) ---
   { id: "i1", type: "intro", title: "イントロクイズ 1", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "どうししゃぐりー", shuffledChars: ["ぐ", "り", "し", "ー", "ど", "う", "ゃ", "し"] },
@@ -724,7 +724,6 @@ function HostMode() {
     });
   };
 
-  // 【追加】ホスト画面用の投票集計
   const voteStats = useMemo(() => {
     const answers = Object.values(state.answers || {});
     const total = answers.length;
@@ -916,7 +915,6 @@ function HostMode() {
                 {totalAnswers} <span className="text-lg text-slate-400 font-normal">人</span>
               </div>
               
-              {/* 【追加】ホスト画面用の予想比率表示 */}
               {currentQ.type === "tarekomi" && (state.status === "voting_closed" || state.status === "result_revealed") && (
                 <div className="border-t border-slate-700 pt-4">
                   <p className="text-sm text-slate-400 font-bold mb-3 flex items-center justify-center gap-1">
@@ -959,7 +957,6 @@ function ScreenMode() {
     return Object.entries(scores).sort((a, b) => b[1] - a[1]) as [Part, number][];
   }, [state.scores]);
 
-  // 【追加】スクリーン画面用の投票集計
   const voteStats = useMemo(() => {
     const answers = Object.values(state.answers || {});
     const total = answers.length;
@@ -1028,7 +1025,6 @@ function ScreenMode() {
                   })}
                 </div>
 
-                {/* 【追加】スクリーン画面用の予想比率表示 */}
                 {state.status === "result_revealed" && (
                   <div className="mt-12 bg-slate-800/80 p-8 rounded-3xl border-2 border-slate-600 inline-block">
                     <p className="text-2xl text-slate-300 font-bold mb-6 flex items-center justify-center gap-2">
