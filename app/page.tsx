@@ -33,9 +33,9 @@ type Part = typeof PARTS[number];
 const PRE_REGISTERED_MEMBERS: { id: string; name: string; part: Part; grade: number }[] = [
   { id: "t1", name: "佐野大器", part: "Top", grade: 4 }, { id: "t2", name: "石川泰輝", part: "Top", grade: 3 },
   { id: "t3", name: "岡田拓士", part: "Top", grade: 3 }, { id: "t4", name: "土井隆世", part: "Top", grade: 3 },
-  { id: "t5", name: "吉村弥", part: "Top", grade: 3 },
-  { id: "t6", name: "石井瑛士", part: "Top", grade: 1 }, { id: "t7", name: "五月女右京", part: "Top", grade: 1 },
-  { id: "t8", name: "武内颯輝", part: "Top", grade: 1 }, { id: "t9", name: "谷川陸翔", part: "Top", grade: 1 },
+  { id: "t5", name: "八木真斗", part: "Top", grade: 3 }, { id: "t6", name: "吉村弥", part: "Top", grade: 3 },
+  { id: "t7", name: "石井瑛士", part: "Top", grade: 1 }, { id: "t8", name: "五月女右京", part: "Top", grade: 1 },
+  { id: "t9", name: "武内颯輝", part: "Top", grade: 1 }, { id: "t10", name: "谷川陸翔", part: "Top", grade: 1 },
   { id: "s1", name: "小川毅", part: "Second", grade: 4 }, { id: "s2", name: "川口零生", part: "Second", grade: 4 },
   { id: "s3", name: "林和尊", part: "Second", grade: 4 }, { id: "s4", name: "柿葉大地", part: "Second", grade: 2 },
   { id: "s5", name: "中井規矩士", part: "Second", grade: 2 }, { id: "s6", name: "大國裕貴", part: "Second", grade: 1 },
@@ -120,24 +120,23 @@ const QUESTIONS: Question[] = [
   { id: "q53", type: "tarekomi", title: "タレコミクイズ 53", text: "【一色遊】\nなぜかよく京田辺のあまのじゃくで出くわす。", options: ["本当", "嘘"] },
   { id: "q54", type: "tarekomi", title: "タレコミクイズ 54", text: "【田中司真】\n好きな体位はバック。", options: ["本当", "嘘"] },
   { id: "q55", type: "tarekomi", title: "タレコミクイズ 55", text: "【西森晄志】\n某肉屋で一番最初に教えられる仕事しか任せてもらえていない。", options: ["本当", "嘘"] },
-  { id: "q56", type: "tarekomi", title: "タレコミクイズ 56", text: "【【某グリーメン】\n今出川キャンパスの北にある某チェーン店でバイトしているが、しばしば間違えてご飯の量を数百g単位で多く盛ってしまう。", options: ["本当", "嘘"] },
-  
+  { id: "q56", type: "tarekomi", title: "タレコミクイズ 56", text: "【某グリーメン】\n今出川キャンパスの北にある某チェーン店でバイトしているが、しばしば間違えてご飯の量を数百g単位で多く盛ってしまう。", options: ["本当", "嘘"] },
   
   // --- 写真当てクイズ ---
-  { id: "p1", type: "photo", title: "子供の頃の写真当てクイズ 1", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1129 - 西森晄志.jpg", options: [] },
-  { id: "p2", type: "photo", title: "子供の頃の写真当てクイズ 2", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1000013799 - 宇原央燿.jpg", options: [] },
-  { id: "p3", type: "photo", title: "子供の頃の写真当てクイズ 3", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/1596403907453 - 山崎瑛大.jpg", options: [] },
-  { id: "p4", type: "photo", title: "子供の頃の写真当てクイズ 4", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/d8ecdf10-a8e6-4f5a-bb92-a73ba556ad6e-1_all_3862 - 中山東熊.jpg", options: [] },
-  { id: "p5", type: "photo", title: "子供の頃の写真当てクイズ 5", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/DSC_0421 - call of war用サブ垢.JPG", options: [] },
-  { id: "p6", type: "photo", title: "子供の頃の写真当てクイズ 6", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/FB_IMG_1787719015845 - 田中大山.jpg", options: [] },
-  { id: "p7", type: "photo", title: "子供の頃の写真当てクイズ 7", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_1317 - 中井規矩士.jpeg", options: [] },
-  { id: "p8", type: "photo", title: "子供の頃の写真当てクイズ 8", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_1617 - 石井瑛士.jpeg", options: [] },
-  { id: "p9", type: "photo", title: "子供の頃の写真当てクイズ 9", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_3783 - 岡田拓士.jpeg", options: [] },
-  { id: "p10", type: "photo", title: "子供の頃の写真当てクイズ 10", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_4555 - 川口零生.jpeg", options: [] },
-  { id: "p11", type: "photo", title: "子供の頃の写真当てクイズ 11", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_4726 - 中井規矩士.jpeg", options: [] },
-  { id: "p12", type: "photo", title: "子供の頃の写真当てクイズ 12", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_5136 - shu s.jpeg", options: [] },
-  { id: "p13", type: "photo", title: "子供の頃の写真当てクイズ 13", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_5310 - 田中司真.jpeg", options: [] },
-  { id: "p14", type: "photo", title: "子供の頃の写真当てクイズ 14", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/IMG_6315 - Taiki Sano.jpeg", options: [] },
+  { id: "p1", type: "photo", title: "子供の頃の写真当てクイズ 1", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p1.jpg", options: [] },
+  { id: "p2", type: "photo", title: "子供の頃の写真当てクイズ 2", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p2.jpg", options: [] },
+  { id: "p3", type: "photo", title: "子供の頃の写真当てクイズ 3", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p3.jpg", options: [] },
+  { id: "p4", type: "photo", title: "子供の頃の写真当てクイズ 4", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p4.jpg", options: [] },
+  { id: "p5", type: "photo", title: "子供の頃の写真当てクイズ 5", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p5.JPG", options: [] },
+  { id: "p6", type: "photo", title: "子供の頃の写真当てクイズ 6", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p6.jpg", options: [] },
+  { id: "p7", type: "photo", title: "子供の頃の写真当てクイズ 7", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p7.jpeg", options: [] },
+  { id: "p8", type: "photo", title: "子供の頃の写真当てクイズ 8", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p8.jpeg", options: [] },
+  { id: "p9", type: "photo", title: "子供の頃の写真当てクイズ 9", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p9.jpeg", options: [] },
+  { id: "p10", type: "photo", title: "子供の頃の写真当てクイズ 10", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p10.jpeg", options: [] },
+  { id: "p11", type: "photo", title: "子供の頃の写真当てクイズ 11", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p11.jpeg", options: [] },
+  { id: "p12", type: "photo", title: "子供の頃の写真当てクイズ 12", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p12.jpeg", options: [] },
+  { id: "p13", type: "photo", title: "子供の頃の写真当てクイズ 13", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p13.jpeg", options: [] },
+  { id: "p14", type: "photo", title: "子供の頃の写真当てクイズ 14", text: "この可愛い写真は、一体誰の幼少期でしょう？", imageUrl: "/images/p14.jpeg", options: [] },
   
   // --- イントロクイズ (全17問：アナグラム設定済み) ---
   { id: "i1", type: "intro", title: "イントロクイズ 1", text: "この曲のタイトルは何でしょう？", options: [], anagramWord: "どうししゃぐりー", shuffledChars: ["ぐ", "り", "し", "ー", "ど", "う", "ゃ", "し"] },
@@ -679,14 +678,14 @@ function ParticipantMode() {
 function HostMode() {
   const { state, updateState, resetGame } = useGameState();
   const [photoAnswerInput, setPhotoAnswerInput] = useState("");
-  const [introPoints, setIntroPoints] = useState(10); // 【追加】イントロクイズ用のポイント調整ステート
+  const [introPoints, setIntroPoints] = useState(10);
   
   const currentQ = QUESTIONS[state.currentQuestionIndex] || QUESTIONS[0];
   const totalAnswers = Object.keys(state.answers || {}).length;
 
   const nextQuestion = () => {
     updateState((prev) => ({ ...prev, status: "waiting", currentQuestionIndex: Math.min(prev.currentQuestionIndex + 1, QUESTIONS.length - 1), correctAnswer: null, answers: {}, buzzerWinner: null, lockedOut: [] }));
-    setIntroPoints(10); // 【追加】次の問題に行ったら10ポイントにリセット
+    setIntroPoints(10); 
   };
 
   const startVoting = () => updateState((prev) => ({ ...prev, status: "question_active", answers: {}, correctAnswer: null, buzzerWinner: null, lockedOut: [] }));
@@ -706,7 +705,7 @@ function HostMode() {
     updateState((prev) => {
       if (isCorrect && prev.buzzerWinner) {
         const newScores = { ...prev.scores };
-        newScores[prev.buzzerWinner] = (newScores[prev.buzzerWinner] || 0) + introPoints; // 【修正】入力されたポイントを付与
+        newScores[prev.buzzerWinner] = (newScores[prev.buzzerWinner] || 0) + introPoints; 
         return { ...prev, status: "result_revealed", correctAnswer: "正解！", scores: newScores };
       } else {
         const newLockedOut = [...(prev.lockedOut || []), prev.buzzerWinner as string];
@@ -724,6 +723,19 @@ function HostMode() {
       return { ...prev, status: "result_revealed", correctAnswer, scores: newScores };
     });
   };
+
+  // 【追加】ホスト画面用の投票集計
+  const voteStats = useMemo(() => {
+    const answers = Object.values(state.answers || {});
+    const total = answers.length;
+    const trueVotes = answers.filter(a => a === "本当").length;
+    const falseVotes = answers.filter(a => a === "嘘").length;
+    return {
+      total, trueVotes, falseVotes,
+      truePercent: total > 0 ? Math.round((trueVotes / total) * 100) : 0,
+      falsePercent: total > 0 ? Math.round((falseVotes / total) * 100) : 0,
+    };
+  }, [state.answers]);
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-6">
@@ -774,7 +786,6 @@ function HostMode() {
                       🎤 解答者: {PRE_REGISTERED_MEMBERS.find(m => m.id === state.buzzerWinner)?.name}
                     </h3>
                     
-                    {/* 【追加】イントロクイズ ポイント調整UI */}
                     <div className="flex items-center gap-3 mb-6 bg-slate-800/50 p-4 rounded-xl border border-yellow-600/50">
                       <span className="text-yellow-300 font-bold">付与ポイント:</span>
                       <button onClick={() => setIntroPoints(p => p - 10)} className="w-10 h-10 bg-slate-700 rounded-lg hover:bg-slate-600 text-xl font-bold flex items-center justify-center">-</button>
@@ -901,9 +912,28 @@ function HostMode() {
           <div className="space-y-6">
             <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
               <h3 className="text-lg font-bold mb-4 text-slate-300">投票状況</h3>
-              <div className="text-5xl font-black text-center text-white mb-2">
+              <div className="text-5xl font-black text-center text-white mb-6">
                 {totalAnswers} <span className="text-lg text-slate-400 font-normal">人</span>
               </div>
+              
+              {/* 【追加】ホスト画面用の予想比率表示 */}
+              {currentQ.type === "tarekomi" && (state.status === "voting_closed" || state.status === "result_revealed") && (
+                <div className="border-t border-slate-700 pt-4">
+                  <p className="text-sm text-slate-400 font-bold mb-3 flex items-center justify-center gap-1">
+                    <PieChart className="w-4 h-4" /> みんなの予想
+                  </p>
+                  <div className="flex gap-2 text-sm font-bold text-center">
+                    <div className="flex-1 p-2 bg-slate-900 rounded-lg border border-slate-700">
+                      <span className="text-slate-500 block text-xs">本当</span>
+                      <span className="text-indigo-400 text-xl">{voteStats.truePercent}%</span>
+                    </div>
+                    <div className="flex-1 p-2 bg-slate-900 rounded-lg border border-slate-700">
+                      <span className="text-slate-500 block text-xs">嘘</span>
+                      <span className="text-pink-400 text-xl">{voteStats.falsePercent}%</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -928,6 +958,19 @@ function ScreenMode() {
     });
     return Object.entries(scores).sort((a, b) => b[1] - a[1]) as [Part, number][];
   }, [state.scores]);
+
+  // 【追加】スクリーン画面用の投票集計
+  const voteStats = useMemo(() => {
+    const answers = Object.values(state.answers || {});
+    const total = answers.length;
+    const trueVotes = answers.filter(a => a === "本当").length;
+    const falseVotes = answers.filter(a => a === "嘘").length;
+    return {
+      total, trueVotes, falseVotes,
+      truePercent: total > 0 ? Math.round((trueVotes / total) * 100) : 0,
+      falsePercent: total > 0 ? Math.round((falseVotes / total) * 100) : 0,
+    };
+  }, [state.answers]);
 
   return (
     <div className="h-screen w-full bg-slate-900 text-white overflow-hidden flex flex-col items-center justify-center relative font-sans">
@@ -972,16 +1015,39 @@ function ScreenMode() {
             )}
 
             {currentQ.type === "tarekomi" && (
-              <div className="flex flex-wrap justify-center gap-6 mt-12">
-                {currentQ.options.map((opt) => {
-                  const isCorrect = state.status === "result_revealed" && state.correctAnswer === opt;
-                  const isWrong = state.status === "result_revealed" && state.correctAnswer !== opt;
-                  return (
-                    <div key={opt} className={`px-10 py-6 rounded-2xl text-4xl font-bold transition-all duration-500 ${state.status === "question_active" ? "bg-slate-800 border-2 border-slate-600 shadow-xl" : ""} ${state.status === "voting_closed" ? "bg-slate-800 border-2 border-slate-600 opacity-50" : ""} ${isCorrect ? "bg-green-500 text-white scale-110 shadow-[0_0_50px_rgba(34,197,94,0.5)] border-4 border-green-300" : ""} ${isWrong ? "bg-slate-800 opacity-20 scale-95" : ""}`}>
-                      {opt}
+              <div className="flex flex-col items-center mt-12">
+                <div className="flex flex-wrap justify-center gap-6">
+                  {currentQ.options.map((opt) => {
+                    const isCorrect = state.status === "result_revealed" && state.correctAnswer === opt;
+                    const isWrong = state.status === "result_revealed" && state.correctAnswer !== opt;
+                    return (
+                      <div key={opt} className={`px-10 py-6 rounded-2xl text-4xl font-bold transition-all duration-500 ${state.status === "question_active" ? "bg-slate-800 border-2 border-slate-600 shadow-xl" : ""} ${state.status === "voting_closed" ? "bg-slate-800 border-2 border-slate-600 opacity-50" : ""} ${isCorrect ? "bg-green-500 text-white scale-110 shadow-[0_0_50px_rgba(34,197,94,0.5)] border-4 border-green-300" : ""} ${isWrong ? "bg-slate-800 opacity-20 scale-95" : ""}`}>
+                        {opt}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* 【追加】スクリーン画面用の予想比率表示 */}
+                {state.status === "result_revealed" && (
+                  <div className="mt-12 bg-slate-800/80 p-8 rounded-3xl border-2 border-slate-600 inline-block">
+                    <p className="text-2xl text-slate-300 font-bold mb-6 flex items-center justify-center gap-2">
+                      <PieChart className="w-8 h-8" /> みんなの予想
+                    </p>
+                    <div className="flex gap-8 text-2xl font-bold">
+                      <div className={`px-8 py-6 rounded-2xl border-4 ${voteStats.trueVotes > voteStats.falseVotes ? 'bg-indigo-900/50 border-indigo-400' : 'bg-slate-800 border-slate-600'}`}>
+                        <span className="text-slate-400 block text-lg mb-2">本当</span>
+                        <span className="text-indigo-400 text-5xl">{voteStats.truePercent}%</span>
+                        <span className="text-slate-500 text-xl ml-3">({voteStats.trueVotes}人)</span>
+                      </div>
+                      <div className={`px-8 py-6 rounded-2xl border-4 ${voteStats.falseVotes > voteStats.trueVotes ? 'bg-pink-900/50 border-pink-400' : 'bg-slate-800 border-slate-600'}`}>
+                        <span className="text-slate-400 block text-lg mb-2">嘘</span>
+                        <span className="text-pink-400 text-5xl">{voteStats.falsePercent}%</span>
+                        <span className="text-slate-500 text-xl ml-3">({voteStats.falseVotes}人)</span>
+                      </div>
                     </div>
-                  );
-                })}
+                  </div>
+                )}
               </div>
             )}
 
